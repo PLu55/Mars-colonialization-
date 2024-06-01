@@ -9,6 +9,7 @@ A project with the purpose of colonialize Mars has been started and the colonial
 There are problems, the population if devided into faction struggling for power. You have benn there in the last convoy. Your secred mission is to unite the population but you have a chose, struggle for the power you self or truly unite the colony.
 
 ## Game Concept: Mars Colony Unity
+
 ### Introduction
 
 The game is a strategy and simulation game where the player arrives on Mars with the mission to unite a divided colony. The player must navigate complex social dynamics, manage resources, and make strategic decisions to either unite the colony or take control themselves.
@@ -17,34 +18,34 @@ The game is a strategy and simulation game where the player arrives on Mars with
 
 * Population: 160 people
 * Habitats: 13 specialized habitats
-    * Specializations: Food production, infrastructure support, mining, medical, research, etc.
+  * Specializations: Food production, infrastructure support, mining, medical, research, etc.
 * Factions: Multiple factions, each controlling different habitats and having different ideologies and goals.
 
 ### Gameplay Mechanics
 
 * Resource Management
-    * Resources: Food, water, oxygen, minerals, energy.
+  * Resources: Food, water, oxygen, minerals, energy.
 * Production and Consumption: Each habitat produces and consumes resources. The player must ensure a balance to prevent shortages.
 
 * Faction Dynamics
-    * Factions: Each faction has unique leaders, goals, strengths, and weaknesses.
-    * Relationships: Factions can have positive or negative relationships with each other. The player must navigate these relationships through diplomacy, trade, and conflict.
+  * Factions: Each faction has unique leaders, goals, strengths, and weaknesses.
+  * Relationships: Factions can have positive or negative relationships with each other. The player must navigate these relationships through diplomacy, trade, and conflict.
 
 * Player Objectives
-    * Unity Path: Work towards uniting the factions peacefully. Achieve this through diplomacy, fulfilling common goals, and solving shared problems.
-    * Power Path: Attempt to take control by consolidating power, either through political maneuvering or force.
+  * Unity Path: Work towards uniting the factions peacefully. Achieve this through diplomacy, fulfilling common goals, and solving shared problems.
+  * Power Path: Attempt to take control by consolidating power, either through political maneuvering or force.
 
 * Diplomacy and Politics
-    * Dialogue System: Interact with faction leaders through a dialogue system. Choices in conversations can affect relationships and outcomes.
-    * Alliances and Rivalries: Form alliances with some factions to strengthen your position, or create rivalries to weaken opposition.
+  * Dialogue System: Interact with faction leaders through a dialogue system. Choices in conversations can affect relationships and outcomes.
+  * Alliances and Rivalries: Form alliances with some factions to strengthen your position, or create rivalries to weaken opposition.
 
 * Challenges and Events
-    * Random Events: Natural disasters (dust storms, equipment failures), supply shortages, and faction disputes.
-    * Missions: Specific tasks related to resource management, conflict resolution, and infrastructure development.
+  * Random Events: Natural disasters (dust storms, equipment failures), supply shortages, and faction disputes.
+  * Missions: Specific tasks related to resource management, conflict resolution, and infrastructure development.
 
 * Technology and Research
-    * Research Tree: Invest in technologies to improve habitat efficiency, develop new resources, and enhance diplomatic options.
-    * Upgrades: Upgrade habitats to increase production and comfort, making life on Mars more sustainable.
+  * Research Tree: Invest in technologies to improve habitat efficiency, develop new resources, and enhance diplomatic options.
+  * Upgrades: Upgrade habitats to increase production and comfort, making life on Mars more sustainable.
 
 ### Game Flow
 
@@ -54,10 +55,12 @@ The player arrives on Mars and is introduced to the colony's current state.
 Initial briefings provide an overview of faction relationships, resource status, and immediate challenges.
 
 #### Mid-Game
+
 The player navigates faction dynamics, manages resources, and deals with random events.
 Diplomacy and strategy become crucial as the player works towards their chosen path (unity or power).
 
 #### Endgame
+
 The player must either successfully unite the factions or consolidate power.
 Final challenges and major events test the player’s decisions and strategies.
 
@@ -78,6 +81,7 @@ Final challenges and major events test the player’s decisions and strategies.
 * Leader: A charismatic spiritual leader who uses persuasive rhetoric to maintain control.
 
 #### The Anarchists
+
 * Ideology: Committed to a flat and democratic decision structure with no particular leader. They believe in collective decision-making and individual autonomy.
 * Goals: Ensure all decisions are made democratically and resist any attempts to centralize power.
 * Strengths: High levels of motivation and engagement among members. Decisions reflect the collective will of the group.
@@ -123,52 +127,52 @@ The Habitats
 Each habitat specializes in a specific role, contributing uniquely to the colony’s overall functionality. Here are the 12 habitats with their specializations:
 
 * Mining Village
-    * Specializes in extracting minerals and resources from the Martian surface.
-    * Provides raw materials necessary for construction and manufacturing.
+  * Specializes in extracting minerals and resources from the Martian surface.
+  * Provides raw materials necessary for construction and manufacturing.
 
 * Support and Maintenance Village
-    * Focuses on maintaining colony infrastructure and repairing equipment.
-    * Ensures that all technological systems are functioning correctly.
+  * Focuses on maintaining colony infrastructure and repairing equipment.
+  * Ensures that all technological systems are functioning correctly.
 
 * Research Village
-    * Conducts scientific studies and experiments to enhance understanding of Mars.
-    * Develops new technologies and solutions for the colony.
+  * Conducts scientific studies and experiments to enhance understanding of Mars.
+  * Develops new technologies and solutions for the colony.
 
 * Medical Care Village
-    * Provides healthcare services to colonists.
-    * Focuses on medical research and the development of treatments.
+  * Provides healthcare services to colonists.
+  * Focuses on medical research and the development of treatments.
 
 * Agricultural Village
-    * Manages aquaponics systems to produce food.
-    * Experiments with new crops and sustainable farming techniques.
+  * Manages aquaponics systems to produce food.
+  * Experiments with new crops and sustainable farming techniques.
 
 * Energy Production Village
-    * Generates power for the colony using solar panels and other renewable sources.
-    * Researches and implements energy-efficient technologies.
+  * Generates power for the colony using solar panels and other renewable sources.
+  * Researches and implements energy-efficient technologies.
 
 * Water Reclamation Village
-    * Ensures a steady supply of clean water through recycling and purification.
-    * Innovates in water-saving technologies and methods.
+  * Ensures a steady supply of clean water through recycling and purification.
+  * Innovates in water-saving technologies and methods.
 
 * Habitat Construction Village
-    * Builds and expands the living quarters and other structures.
-    * Develops new construction materials and techniques suitable for Mars.
+  * Builds and expands the living quarters and other structures.
+  * Develops new construction materials and techniques suitable for Mars.
 
 * Communications Village
-    * Manages communications within the colony and with Earth.
-    * Develops new communication technologies to improve connectivity.
+  * Manages communications within the colony and with Earth.
+  * Develops new communication technologies to improve connectivity.
 
 * Transportation Village
-    * Handles the transportation of goods and people within the colony.
-    * Researches and implements efficient transportation methods.
+  * Handles the transportation of goods and people within the colony.
+  * Researches and implements efficient transportation methods.
 
 * Environmental Control Village
-    * Monitors and controls the artificial atmosphere within the domes.
-    * Develops new methods to maintain a stable and habitable environment.
+  * Monitors and controls the artificial atmosphere within the domes.
+  * Develops new methods to maintain a stable and habitable environment.
 
 * Governance Village
-    * Acts as the administrative center for the colony.
-    * Manages colony-wide policies and coordinates between habitats.
+  * Acts as the administrative center for the colony.
+  * Manages colony-wide policies and coordinates between habitats.
   
 
 ## Climate
@@ -199,6 +203,7 @@ Mars' Elliptical Orbit
     The variation in solar energy impacts growing seasons and crop yields. Agriculture might need to adapt to periods of higher and lower solar radiation.
 
 ## Received Solar Energy
+
 To compute the solar energy received at a particular location on Mars, you need to consider several factors, including the distance of Mars from the Sun, the angle of the sunlight (solar zenith angle), the Martian atmosphere, and the time of year. Here's a step-by-step process to compute the solar irradiance (solar power per unit area) at a specific location on Mars:
 Step-by-Step Process
 
@@ -253,5 +258,4 @@ Computing the solar energy at a specific location on Mars involves considering t
 
 ## Atmosphere
 
-Mars has a thin atmosphere, 95% carbon dioxide, 2.7% nitrogen, 1.6% argon, and traces of oxygen and water
-
+Mars has a thin atmosphere, 95% carbon dioxide, 2.7% nitrogen, 1.6% argon, and traces of oxygen and water.
