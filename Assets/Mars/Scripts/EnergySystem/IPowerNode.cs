@@ -14,6 +14,6 @@ namespace PLu.Mars.EnergySystem
     {
         PowerNodeType PowerNodeType { get; }
         float NominalEffect { get; }
-        float CurrentEffectLevel();
+        float UppdateEffectLevel(float updateInterval, float effectBalance);
     }
 }

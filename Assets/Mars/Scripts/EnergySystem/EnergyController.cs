@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using PLu.Utilities;
 using PLu.Mars.Kernel;
+using PLu.Mars.HabitatSystem;
  
 namespace PLu.Mars.EnergySystem
 {
@@ -18,7 +19,7 @@ namespace PLu.Mars.EnergySystem
         public float SolarIrradiance => _solarIrradiance;
         public float UpdateInterval => _updateInterval;
         private HabitatController _habitatController;
-        private CountdownTimer _TickTimer;
+        private CountdownTimer _tickTimer;
         private float _solarIrradiance;
 
         private List<IPowerNode> _powerProducerNodes = new List<IPowerNode>();
@@ -27,21 +28,21 @@ namespace PLu.Mars.EnergySystem
 
         void Awake()
         {
-            _habitatController = FindObjectOfType<HabitatController>(); // TODO: not correct, fix it!
+            _habitatController = GetComponent<HabitatController>();
             Debug.Assert(_habitatController != null, "Habitat Controller is not found in EnergyController");
         }
         void Start()
         {
-            _TickTimer = new CountdownTimer(_updateInterval);
-            _TickTimer.Start();
+            _tickTimer = new CountdownTimer(_updateInterval);
+            _tickTimer.Start();
         }
         void Update()
         {
-            _TickTimer.Tick(Time.deltaTime);
-            if (_TickTimer.IsFinished)
+            _tickTimer.Tick(Time.deltaTime);
+            if (_tickTimer.IsFinished)
             {
-                _TickTimer.Reset();
-                _TickTimer.Start();
+                _tickTimer.Reset();
+                _tickTimer.Start();
                 UpdateEnergyBalance();
             }
         }
@@ -56,7 +57,7 @@ namespace PLu.Mars.EnergySystem
             float effectStored = 0f;
             foreach(var node in _powerProducerNodes)
             {
-                effectProduced += node.CurrentEffectLevel();
+                effectProduced += node.UppdateEffectLevel(_updateInterval, _effectBalance);
                 
             }
             _effectBalance += effectProduced;
@@ -64,7 +65,7 @@ namespace PLu.Mars.EnergySystem
   
             foreach(var node in _powerConsumerNodes)
             {
-                effectConsumed += node.CurrentEffectLevel();
+                effectConsumed += node.UppdateEffectLevel(_updateInterval, _effectBalance);
             }
             _effectBalance += effectConsumed;
             Debug.Log($"--- Effect consumed: {effectConsumed}");
@@ -75,11 +76,13 @@ namespace PLu.Mars.EnergySystem
 
             foreach(var node in _powerStorageNodes)
             {
-                effectStored += node.CurrentEffectLevel();
+                float currentEffect = node.UppdateEffectLevel(_updateInterval, _effectBalance);
+                effectStored += currentEffect;
+                _effectBalance += currentEffect;
             }
-            _effectBalance += effectStored;
-            Debug.Log($"---    Effect Stored: {effectStored}");
-            Debug.Log($"---    Effect Balance: {_effectBalance}");
+
+            Debug.Log($"--- Effect Stored: {-effectStored}");
+            Debug.Log($"--- Effect Balance: {_effectBalance}");
         }
 
         public void AddPowerNode(IPowerNode node)
