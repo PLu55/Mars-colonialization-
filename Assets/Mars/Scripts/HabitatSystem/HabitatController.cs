@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using PLu.Mars.Kernel;
 using PLu.Utilities;
+using PLu.Mars.Kernel;
 
-namespace PLu.Mars
+namespace PLu.Mars.HabitatSystem
 {
     public class HabitatController : MonoBehaviour
     {
@@ -22,10 +22,16 @@ namespace PLu.Mars
         public double LocalTime => Calendar.GlobalTime + TimeZone * 3600f; // local time in seconds
         public double LocalSolarTime => LocalTime + (Longitude - TimeZone * 15f) * 240f; // local solar time in seconds
 
-        
         public double LocalSolarTimeNow => _localSolarTimeNow;
         public float CurrentSolarIrradiance => _currentSolarIrradiance;
-
+        public float DomeRadius => _domeRadius;
+        public float DomeArea => 2.0f * Mathf.PI * Mathf.Pow(DomeRadius, 2); // Surface area of a hemisphere
+        public float DomeVolume => (4.0f / 6.0f) * Mathf.PI * Mathf.Pow(DomeRadius, 3); // Volume of a hemisphere
+        public float DomeGroundArea => Mathf.PI * Mathf.Pow(DomeRadius, 2);
+     
+        private float _nominalTemprature = 20.0f;
+        private float _temprature = 20.0f; // Celsius
+        private float _domeRadius = 35.0f;
         private double _localSolarTimeNow;
         private float _currentSolarIrradiance;
         CountdownTimer _TickTimer;
@@ -35,6 +41,7 @@ namespace PLu.Mars
             _TickTimer = new CountdownTimer(_updateInterval, true);
             _TickTimer.Start();
             _localSolarTimeNow = LocalSolarTime;
+            _domeRadius = transform.localScale.x / 2.0f;
             UpdateHabitat();
         }
         void Update()
@@ -61,6 +68,31 @@ namespace PLu.Mars
             float hourAngle = CelestialCalculator.HourAngle((float)(LocalSolarTimeNow / 3600.0));
             _currentSolarIrradiance = CelestialCalculator.SolarIrradiance(Latitude, hourAngle, timeOfDay);
             Debug.Log($"--- Current Solar Irradiance: {_currentSolarIrradiance}");
+        }
+
+        public static HabitatController FindClosestHabitat(Vector3 position)
+        {
+            GameObject[] habitats = GameObject.FindGameObjectsWithTag("Habitat");
+
+            GameObject closestHabitat = null;
+            float closestDistance = float.MaxValue;
+            foreach (var habitat in habitats)
+            {
+                float distance = Vector3.Distance(habitat.transform.position, position);
+                if (distance < closestDistance)
+                {
+                    closestDistance = distance;
+                    closestHabitat = habitat;
+                }
+            }
+            if (closestHabitat == null)
+            {
+                Debug.LogError("Not Habitat: found ");
+                return null;
+            }
+            HabitatController habitatController = closestHabitat.GetComponent<HabitatController>();
+            Debug.Assert(habitatController != null, "Habitat Controller is not found in Habitat");
+            return habitatController;
         }
     }
 }
