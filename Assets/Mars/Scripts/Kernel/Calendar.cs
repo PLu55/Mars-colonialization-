@@ -3,7 +3,7 @@ using UnityEngine;
  
 namespace PLu.Mars.Kernel
 {
-    public class Calendar
+    public class Calendar : MonoBehaviour
     {
         // 687 days = 1 year, a day is called sol
         // 24 months = 1 year, 668.6 days a year, 28 sols a month
@@ -13,7 +13,7 @@ namespace PLu.Mars.Kernel
         // Days: Solisday, Tharsday, Deimosday, Areoday, Phobosday, Olympday, Valday (or other thematic names).
         
         // Expecting non negative time, no leap years
-        // TODO: implement leap days
+        // TODO: implement leap days, 
         public const double DayLength = 86400.0; // Earth day, use this for calculations as it simplifies alot to have 24 hour days
         public const double MarsDayLength = 88775.244;
         public const double  MarsSecond = 1.02749125;
@@ -22,12 +22,10 @@ namespace PLu.Mars.Kernel
         public const int MonthPerYear = 24;
         public const int WeekLength = 7;
 
-        public static double  TimeOffset = 0;
-
-        
-        public static double GlobalTime => Time.time + TimeOffset;
-        public static float TimeOfDay => (float)(GlobalTime % DayLength);
-
+        public static int DaysInMonth(int month) => (month - 1) % 6 == 5 ? 27 : 28;
+        // public static double GlobalTime => Time.time + TimeOffset;
+        public static float TimeOfDay (double time) => (float)(time % DayLength);
+        public static float TimeOfDayNormalized (double globalTime) => TimeOfDay(globalTime) / (float)DayLength;
         // Counting from 0
         public static int DayNumber(double globalTime) => (int)(Math.Floor(globalTime / DayLength) % (int)DaysPerYear);
         //public static int DayNumber(double globalTime) => (int)Math.Floor(globalTime / DayLength % DaysPerYear);
@@ -37,7 +35,6 @@ namespace PLu.Mars.Kernel
         public static int Hour (double  globalTime)=> (int)Math.Floor(globalTime % DayLength / 3600f);
         public static int Minutes(double  globalTime) => (int)Math.Floor(globalTime % 3600f / 60f);
         public static double  Seconds(double  globalTime) => globalTime % 60f;
-
         public static int Year(double  globalTime) => (int)Math.Floor(DayNumber(globalTime) / DaysPerYear);
 
     }

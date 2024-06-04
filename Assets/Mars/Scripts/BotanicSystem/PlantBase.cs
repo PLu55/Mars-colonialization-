@@ -19,11 +19,8 @@ namespace PLu.Mars.BotanicSystem
 
             _botanicController.AddPlant(this);
         }
-        public virtual void UpdatePlant(float updateInterval)
-        {
-            
-        }
-        public abstract AtmosphereCompounds GasBalance(float updateInterval);
+        public abstract void UpdatePlant(float updateInterval);
+        public abstract AtmosphereCompounds AtmosphereBalance(float updateInterval);
 
     }
 }

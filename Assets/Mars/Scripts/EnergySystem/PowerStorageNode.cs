@@ -32,7 +32,6 @@ namespace PLu.Mars.EnergySystem
         // TODO: FIX: Balance is wrong negative total effect balance in EnergyController
         public override float UppdateEffectLevel(float updateInterval, float effectBalance)
         {
-            Debug.Log($"Updating Power Storage effect balance: {effectBalance} W, update interval: {updateInterval} s");
             float energyBalance;
             effectBalance /= 1000f; // effectBalance in kW
 
@@ -47,8 +46,6 @@ namespace PLu.Mars.EnergySystem
                 
                 energyBalance = _energyLevel + energyBalance > _capacity ? _capacity - _energyLevel : energyBalance;
                 _energyLevel += energyBalance;
-                
-                Debug.Log($"--- Charging Energy Balance: {energyBalance} kWh, effect balance: {energyBalance / updateInterval *  Wh2Joule} kW");
             }
             else
             {
@@ -57,11 +54,8 @@ namespace PLu.Mars.EnergySystem
                 energyBalance = _energyLevel + energyBalance < 0 ?  -_energyLevel : energyBalance;
 
                 _energyLevel += energyBalance;
-                //energyBalance = -energyBalance;
-                Debug.Log($"--- Discharging Energy Balance: {energyBalance} kWh, effect balance: {energyBalance / updateInterval *  Wh2Joule} kW");
             }
-            effectBalance = -energyBalance * Wh2Joule * 1000f / updateInterval;
-            Debug.Log($"--- outgoing energy balance: {energyBalance} kWh, effect balance: {effectBalance} W");
+
             return -energyBalance / updateInterval * Wh2Joule * 1000f;
         }
     }

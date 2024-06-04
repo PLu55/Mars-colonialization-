@@ -39,16 +39,17 @@ namespace PLu.Mars.BotanicSystem
         {
             
         }
-        public override AtmosphereCompounds GasBalance(float updateInterval)
+        public override AtmosphereCompounds AtmosphereBalance(float updateInterval)
         {// oxygen nitrogen carbonDioxide
             if (_habitatController.CurrentSolarIrradiance < 0.1f)
             {
                 Debug.Log("Tree is not producing oxygen because of low solar irradiance");
                 return new AtmosphereCompounds(0f, 0f, 0f, 0f);
             }
-            float oxygen = OxygenProduction * updateInterval / 3600f; 
+            float oxygen = OxygenProduction * updateInterval / 3600f;
+            float transpiration = _transpirationRate * LeafArea * updateInterval / 3600f; 
             Debug.Log("Tree is producing " + oxygen + " l of oxygen");
-            return new AtmosphereCompounds(oxygen, 0f, -0f, 0f);
+            return new AtmosphereCompounds(oxygen, 0f, -0f, transpiration);
         }
     }
 }

@@ -89,20 +89,184 @@ public class CelestialCalculatorTests
         declination = Mathf.PI / 2;
         hourAngle = Mathf.PI / 2;
         angle = CelestialCalculator.SolarZenithAngle(latitude, declination, hourAngle);
-        Assert.AreEqual(Mathf.PI / 2, angle);
+        Assert.That(angle, Is.EqualTo(Mathf.PI/2f).Within(0.001f));
 
         latitude = Mathf.PI / 2;
         declination = Mathf.PI / 2;
         hourAngle = Mathf.PI / 2;
         angle = CelestialCalculator.SolarZenithAngle(latitude, declination, hourAngle);
-        Assert.AreEqual(0f, angle);
+        Assert.That(angle, Is.EqualTo(0f).Within(0.001f));
         
         latitude = Mathf.PI / 4;
         declination = Mathf.PI / 4;
         hourAngle = Mathf.PI / 4;
         angle = CelestialCalculator.SolarZenithAngle(latitude, declination, hourAngle);
-        Assert.AreEqual(0.548028469f, angle);
+        Assert.That(angle, Is.EqualTo(0.548028469f).Within(0.001f));
     }
+
+    [Test]
+    public void SolarAltitudeTest()
+    {
+        float latitude = 0;
+        float declination = 0;
+        float hourAngle = 0;
+        float angle = CelestialCalculator.SolarAltitude(latitude, declination, hourAngle);
+        Assert.That(angle, Is.EqualTo(Mathf.PI / 2f).Within(0.001f));
+
+        latitude = 0;
+        declination = 0;
+        hourAngle = Mathf.PI / 2f;
+        angle = CelestialCalculator.SolarAltitude(latitude, declination, hourAngle);
+        Assert.That(angle, Is.EqualTo(0f).Within(0.001f));
+
+        hourAngle = Mathf.PI;
+        angle = CelestialCalculator.SolarAltitude(latitude, declination, hourAngle);
+        Assert.That(angle, Is.EqualTo(-Mathf.PI / 2f).Within(0.001f));
+        
+        hourAngle = 0;
+        latitude = Mathf.PI / 2;
+        angle = CelestialCalculator.SolarAltitude(latitude, declination, hourAngle);
+        Assert.That(angle, Is.EqualTo(0f).Within(0.001f));
+
+        latitude = Mathf.PI / 4;
+        angle = CelestialCalculator.SolarAltitude(latitude, declination, hourAngle);
+        Assert.That(angle, Is.EqualTo(Mathf.PI / 4f).Within(0.001f));
+
+        latitude = 0;
+        declination = Mathf.PI / 2;
+        hourAngle = Mathf.PI / 2;
+        angle = CelestialCalculator.SolarAltitude(latitude, declination, hourAngle);
+        Assert.That(angle, Is.EqualTo(0f).Within(0.001f));
+
+        latitude = Mathf.PI / 2;
+        declination = Mathf.PI / 2;
+        hourAngle = Mathf.PI / 2;
+        angle = CelestialCalculator.SolarAltitude(latitude, declination, hourAngle);
+        Assert.That(angle, Is.EqualTo(Mathf.PI / 2).Within(0.001f));
+        
+        latitude = Mathf.PI / 4;
+        declination = Mathf.PI / 4;
+        hourAngle = Mathf.PI / 4;
+        angle = CelestialCalculator.SolarAltitude(latitude, declination, hourAngle);
+        Assert.That(angle, Is.EqualTo(1.0227679f).Within(0.001f));
+    }
+
+    [Test]
+    public void SubSolarAzimuth()
+    {
+        float latitude = 0;
+        float declination = 0;
+        float globalTime = 0;
+        float hourAngle = 0;
+        float angle = CelestialCalculator.SubSolarAzimuth(latitude, declination, hourAngle, globalTime);
+
+        for(int i = 0; i < 24; i+=3)
+        {
+
+            globalTime = i * 3600;
+            hourAngle = CelestialCalculator.HourAngle(globalTime/3600f);
+            declination = CelestialCalculator.SolarDeclinationAngle(globalTime);
+            angle = CelestialCalculator.SubSolarAzimuth(latitude, declination, hourAngle, globalTime);
+            Debug.Log($"globalTime {globalTime / 3600f} hourAngle {hourAngle} declination {declination} angle {angle}");
+        }
+
+        Assert.That(angle, Is.EqualTo(0f).Within(0.001f));
+
+        latitude = 0;
+        declination = 0;
+        hourAngle = Mathf.PI / 2f;
+        angle = CelestialCalculator.SubSolarAzimuth(latitude, declination, hourAngle,  globalTime);
+        Assert.That(angle, Is.EqualTo(Mathf.PI / 2f).Within(0.001f));
+
+        latitude = 0;
+        declination = 0;
+        hourAngle = -Mathf.PI / 2f;
+        angle = CelestialCalculator.SubSolarAzimuth(latitude, declination, hourAngle, globalTime);
+        Assert.That(angle, Is.EqualTo(Mathf.PI * 3f / 2f).Within(0.001f));
+
+        hourAngle = Mathf.PI;
+        angle = CelestialCalculator.SubSolarAzimuth(latitude, declination, hourAngle, globalTime);
+        Assert.That(angle, Is.EqualTo(Mathf.PI).Within(0.001f));
+        
+        hourAngle = 0;
+        latitude = Mathf.PI / 2;
+        angle = CelestialCalculator.SubSolarAzimuth(latitude, declination, hourAngle, globalTime);
+        Assert.That(angle, Is.EqualTo(0f).Within(0.001f));
+
+        latitude = Mathf.PI / 4;
+        angle = CelestialCalculator.SubSolarAzimuth(latitude, declination, hourAngle, globalTime);
+        Assert.That(angle, Is.EqualTo(0f).Within(0.001f));
+
+        latitude = 0;
+        declination = Mathf.PI / 2;
+        hourAngle = Mathf.PI / 2;
+        angle = CelestialCalculator.SubSolarAzimuth(latitude, declination, hourAngle, globalTime);
+        Assert.That(angle, Is.EqualTo(2f * Mathf.PI).Within(0.001f));
+
+        latitude = Mathf.PI / 2;
+        declination = Mathf.PI / 2;
+        hourAngle = Mathf.PI / 2;
+        angle = CelestialCalculator.SubSolarAzimuth(latitude, declination, hourAngle, globalTime);
+        Assert.That(angle, Is.EqualTo(0f).Within(0.001f));
+        
+        latitude = Mathf.PI / 4;
+        declination = Mathf.PI / 4;
+        hourAngle = Mathf.PI / 4;
+
+    }
+    [Test]
+    public void SolarAzmuthTest()
+    {
+        float latitude = 0;
+        float declination = 0;
+        float hourAngle = 0;
+        float angle = CelestialCalculator.SolarAzimuth(latitude, declination, hourAngle);
+        Assert.That(angle, Is.EqualTo(0f).Within(0.001f));
+
+        latitude = 0;
+        declination = 0;
+        hourAngle = Mathf.PI / 2f;
+        angle = CelestialCalculator.SolarAzimuth(latitude, declination, hourAngle);
+        Assert.That(angle, Is.EqualTo(Mathf.PI / 2f).Within(0.001f));
+
+        latitude = 0;
+        declination = 0;
+        hourAngle = -Mathf.PI / 2f;
+        angle = CelestialCalculator.SolarAzimuth(latitude, declination, hourAngle);
+        Assert.That(angle, Is.EqualTo(Mathf.PI * 3f / 2f).Within(0.001f));
+
+        hourAngle = Mathf.PI;
+        angle = CelestialCalculator.SolarAzimuth(latitude, declination, hourAngle);
+        Assert.That(angle, Is.EqualTo(Mathf.PI).Within(0.001f));
+        
+        hourAngle = 0;
+        latitude = Mathf.PI / 2;
+        angle = CelestialCalculator.SolarAzimuth(latitude, declination, hourAngle);
+        Assert.That(angle, Is.EqualTo(0f).Within(0.001f));
+
+        latitude = Mathf.PI / 4;
+        angle = CelestialCalculator.SolarAzimuth(latitude, declination, hourAngle);
+        Assert.That(angle, Is.EqualTo(0f).Within(0.001f));
+
+        latitude = 0;
+        declination = Mathf.PI / 2;
+        hourAngle = Mathf.PI / 2;
+        angle = CelestialCalculator.SolarAzimuth(latitude, declination, hourAngle);
+        Assert.That(angle, Is.EqualTo(2f * Mathf.PI).Within(0.001f));
+
+        latitude = Mathf.PI / 2;
+        declination = Mathf.PI / 2;
+        hourAngle = Mathf.PI / 2;
+        angle = CelestialCalculator.SolarAzimuth(latitude, declination, hourAngle);
+        Assert.That(angle, Is.EqualTo(0f).Within(0.001f));
+        
+        latitude = Mathf.PI / 4;
+        declination = Mathf.PI / 4;
+        hourAngle = Mathf.PI / 4;
+        angle = CelestialCalculator.SolarAzimuth(latitude, declination, hourAngle);
+        Assert.That(angle, Is.EqualTo(0f).Within(0.001f));
+    }
+
     private void Zenit(float latitude, float hourAngle, float globalTime)
     {
         float declination = CelestialCalculator.SolarDeclinationAngle(globalTime);

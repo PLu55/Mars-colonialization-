@@ -12,9 +12,11 @@ namespace PLu.Mars.EnergySystem
         [Header("Energy Settings")]
         [SerializeField] private float _effectBalance = 0f;
 
-
         [Header("Updating Settings")]
         [SerializeField] private float _updateInterval = 1f;
+        [Header("Debugging")]
+        [SerializeField] private bool _debug = false;
+
         public float EffectBalance=> _effectBalance;
         public float SolarIrradiance => _solarIrradiance;
         public float UpdateInterval => _updateInterval;
@@ -48,7 +50,7 @@ namespace PLu.Mars.EnergySystem
         }
         void UpdateEnergyBalance()
         {            
-            Debug.Log("Updating Energy Balance");
+            if (_debug) Debug.Log("Updating Energy Balance");
             _solarIrradiance = _habitatController.CurrentSolarIrradiance;
 
             _effectBalance = 0f;
@@ -61,14 +63,14 @@ namespace PLu.Mars.EnergySystem
                 
             }
             _effectBalance += effectProduced;
-            Debug.Log($"--- Effect produced: {effectProduced}, Solar Irradiance: {_solarIrradiance}");
+            if (_debug) Debug.Log($"--- Effect produced: {effectProduced}, Solar Irradiance: {_solarIrradiance}");
   
             foreach(var node in _powerConsumerNodes)
             {
                 effectConsumed += node.UppdateEffectLevel(_updateInterval, _effectBalance);
             }
             _effectBalance += effectConsumed;
-            Debug.Log($"--- Effect consumed: {effectConsumed}");
+            if (_debug) Debug.Log($"--- Effect consumed: {effectConsumed}");
             if (_effectBalance < 0f)
             {
 
@@ -81,8 +83,8 @@ namespace PLu.Mars.EnergySystem
                 _effectBalance += currentEffect;
             }
 
-            Debug.Log($"--- Effect Stored: {-effectStored}");
-            Debug.Log($"--- Effect Balance: {_effectBalance}");
+            if (_debug) Debug.Log($"--- Effect Stored: {-effectStored}");
+            if (_debug) Debug.Log($"--- Effect Balance: {_effectBalance}");
         }
 
         public void AddPowerNode(IPowerNode node)
@@ -91,14 +93,14 @@ namespace PLu.Mars.EnergySystem
             {
                 case PowerNodeType.PowerProducer:
                     _powerProducerNodes.Add(node);
-                    Debug.Log($"Power producer added");
+                    if (_debug) Debug.Log($"Power producer added");
                     break;
                 case PowerNodeType.PowerConsumer:
-                    Debug.Log($"Power consumer added");
+                    if (_debug) Debug.Log($"Power consumer added");
                     _powerConsumerNodes.Add(node);
                     break;
                 case PowerNodeType.PowerStorage:
-                    Debug.Log($"Power storage added");
+                    if (_debug) Debug.Log($"Power storage added");
                     _powerStorageNodes.Add(node);
                     break;
             }  

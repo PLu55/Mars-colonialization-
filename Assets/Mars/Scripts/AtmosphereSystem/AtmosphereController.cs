@@ -7,11 +7,15 @@ namespace PLu.Mars.AtmosphereSystem
     public class AtmosphereController : MonoBehaviour
     {
         [Header("Atmosphere")]
-        [Tooltip("Total pressure in kPa")]
-        [SerializeField] private float _nominalTotalPressure = 60.0f; // in kPa, normal range 50 to 70 kPa
+        [Tooltip("Wanted atmospheric pressure in kPa, nnormal range 50 to 70 kPa")]
+        [SerializeField] private float _nominalTotalPressure = 60.0f;
+        [Tooltip("Wanted partial oxygen pressure")]
         [SerializeField] private float _nominalOxygenFraction = 0.35f;
         [SerializeField] private float _nominalCarbonDioxideFraction = 0.001f;
         [SerializeField] private float _nominalNitrogenFraction = 0.65f;
+        [SerializeField] private float _nominalTemprature = 20f;
+        [SerializeField] private float _nominalRelativHumility = 55f;
+
 
         public float NominalTotalPressure => _nominalTotalPressure;
         public float NominalOxygenFraction => _nominalOxygenFraction;
@@ -21,7 +25,12 @@ namespace PLu.Mars.AtmosphereSystem
         public float PartialNitrogenPressure => _nominalNitrogenFraction * _nominalTotalPressure;
         public float PartialCarbonDioxidePressure => _nominalCarbonDioxideFraction * _nominalTotalPressure;
 
+        private float _temprature;
+        private float _totalPressure;        
         private float _partialOxygenPressure;
+        private float _partialNitrogenPressure;
+        private float _partialCarbonDioxidePressure;
+
 
         [SerializeField] private float _nominalPartialOxygenPressure = 21f;
         [SerializeField] private float _nominalNitrogenPartialPressure = 39f;
@@ -30,7 +39,7 @@ namespace PLu.Mars.AtmosphereSystem
         public float OxygenLevel => _oxygenLevel;
        
         public float OxygenVolumeRatio =>  TotalPressure / PartialOxygenPressure;
-        private float _totalPressure = 60.0f; // in kPa, normal range 50 to 70 kPa
+        
         private float _oxygenLevel = 0.0f; // ratio of 0.2-0.3
         
         private float _oxygenVolumeRatio;
@@ -38,13 +47,21 @@ namespace PLu.Mars.AtmosphereSystem
 
         void Start()
         {
-            
+            Initialization();
         }
         void Update()
         {
             
         }
 
+        private void Initialization()
+        {
+            _temprature = _nominalTemprature;
+            _totalPressure = _nominalTotalPressure;
+            _partialOxygenPressure = _nominalOxygenFraction * _nominalTotalPressure;
+            _partialNitrogenPressure = _nominalNitrogenFraction * _nominalTotalPressure;
+            _partialCarbonDioxidePressure = _nominalCarbonDioxideFraction * _nominalTotalPressure;
+        }
         public void UpdateAtmosphere()
         {
             _oxygenVolumeRatio = TotalPressure / PartialOxygenPressure;

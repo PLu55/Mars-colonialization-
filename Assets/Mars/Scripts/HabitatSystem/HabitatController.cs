@@ -19,7 +19,7 @@ namespace PLu.Mars.HabitatSystem
         public float Altitude => _altitude;
 
         public int TimeZone => Mathf.RoundToInt(Longitude / 15f);
-        public double LocalTime => Calendar.GlobalTime + TimeZone * 3600f; // local time in seconds
+        public double LocalTime => GameController.Instance.GlobalTime + TimeZone * 3600f; // local time in seconds
         public double LocalSolarTime => LocalTime + (Longitude - TimeZone * 15f) * 240f; // local solar time in seconds
 
         public double LocalSolarTimeNow => _localSolarTimeNow;
@@ -36,6 +36,11 @@ namespace PLu.Mars.HabitatSystem
         private float _currentSolarIrradiance;
         CountdownTimer _TickTimer;
 
+        void Awake()
+        {
+
+            _localSolarTimeNow = LocalSolarTime;
+        }
         void Start()
         {
             _TickTimer = new CountdownTimer(_updateInterval, true);
@@ -47,7 +52,7 @@ namespace PLu.Mars.HabitatSystem
         void Update()
         {
             _localSolarTimeNow = LocalSolarTime;
-            _TickTimer.Tick(Time.deltaTime);
+            _TickTimer.Tick(GameController.Instance.deltaTime);
             if (_TickTimer.IsFinished)
             {
                 UpdateHabitat();
@@ -64,7 +69,7 @@ namespace PLu.Mars.HabitatSystem
         }
         void UpdateSolarIrradiance()
         {
-            float timeOfDay = Calendar.TimeOfDay;
+            float timeOfDay = Calendar.TimeOfDay(LocalTime);
             float hourAngle = CelestialCalculator.HourAngle((float)(LocalSolarTimeNow / 3600.0));
             _currentSolarIrradiance = CelestialCalculator.SolarIrradiance(Latitude, hourAngle, timeOfDay);
             Debug.Log($"--- Current Solar Irradiance: {_currentSolarIrradiance}");

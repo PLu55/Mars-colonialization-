@@ -173,7 +173,6 @@ Each habitat specializes in a specific role, contributing uniquely to the colony
 * Governance Village
   * Acts as the administrative center for the colony.
   * Manages colony-wide policies and coordinates between habitats.
-  
 
 ## Climate
 
@@ -259,3 +258,84 @@ Computing the solar energy at a specific location on Mars involves considering t
 ## Atmosphere
 
 Mars has a thin atmosphere, 95% carbon dioxide, 2.7% nitrogen, 1.6% argon, and traces of oxygen and water.
+
+## Words that could mean something
+
+Abilities, Jobs, Quests, Education, Research, Development tree, Human, Repair, Extract
+Fishtank, Training, Hydroponics, Aquaponik, Food, Water, Training gains abilities,
+Events, Weather, Inventory, Navigation, Map, Solar Storm, Mission, News
+
+## Job System
+
+## Ability System
+
+What a person or agent can do.
+
+## Faction System
+
+## Facillities
+
+* Waterplant
+* Water tank (storage)
+* Food production
+* Energy production
+* Storage, different types, constraints what can be stored
+* Food storage
+* Gas storage
+* Mineral extraction, Mine (surface, underground)
+* Metal production
+* Workshop, different kinds
+* Solar Power Plant
+* Nuclear Power Plant
+* Living Quarters
+* Administratrive Buildings
+* Hospital, Medical facillity
+
+## Items
+
+* Tools
+* Food
+* Keys
+* Bomb
+* Weapon
+* Clothes
+
+## Vehicels
+
+Transporter
+
+## Occupations
+
+* Medic, different grades
+* Miner
+* Engineer, different speciality
+* Biologist
+* Researcher, different kinds
+* Transporter, Physisist
+* Guard
+* Administrator
+* Agriculture expert
+
+## Humans
+
+* Name
+* Age
+* Health
+* Inteligens
+* Strength
+* Personality
+* Mentality
+* Occupation
+* Duties
+* Authorities
+* Position (work)
+
+## Droids, Robots
+
+
+## Transpoprter
+
+A transporter is a vehicle that can transport gods from one place to another. 
+It has a capacity. It can have different constraint what to transport and under
+what conditions. In example it can only work inside the habitat or it can be
+used outside of the habitat. It can transport food, has cooling system.

@@ -54,7 +54,7 @@ namespace PLu.Mars.BotanicSystem
             AtmosphereCompounds gasBalance = new AtmosphereCompounds();
             foreach (var plant in _plants)
             {
-                gasBalance += plant.GasBalance(updateInterval);
+                gasBalance += plant.AtmosphereBalance(updateInterval);
             }
             _atmosphereController.UpdateGases(updateInterval, gasBalance);
         }

@@ -37,7 +37,10 @@ public class CalendarTestsScript
     public void DayTest()
     {
         Assert.AreEqual(1, Calendar.Day(Calendar.DayLength * 0));
-        Assert.AreEqual(2, Calendar.Day(Calendar.DayLength * 669));
+        Assert.AreEqual(28, Calendar.Day(Calendar.DayLength * 27));
+        Assert.AreEqual(1, Calendar.Day(Calendar.DayLength * 28));
+        Assert.AreEqual(1, Calendar.Day(Calendar.DayLength * 28 * 2));
+        Assert.AreEqual(28, Calendar.Day(Calendar.DayLength * 28 * 2 - 1));
         Assert.AreEqual(1, Calendar.Day(Calendar.DayLength * 668));
         Assert.AreEqual(28, Calendar.Day(Calendar.DayLength * 667));
         Assert.AreEqual(28, Calendar.Day(Calendar.DayLength * 668 - 1));

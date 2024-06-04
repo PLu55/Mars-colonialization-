@@ -5,6 +5,7 @@ namespace PLu.Utilities
     public abstract class Timer {
         protected float initialTime;
         public float Time { get; set; }
+        public float TimePast => initialTime - Time;
         public bool IsRunning { get; protected set; }
 
         public float Progress => Time / initialTime;
@@ -19,6 +20,7 @@ namespace PLu.Utilities
 
         public void Start() {
             Time = initialTime;
+
             if (!IsRunning) {
                 IsRunning = true;
                 OnTimerStart.Invoke();
@@ -48,7 +50,8 @@ namespace PLu.Utilities
          }
 
         public override void Tick(float deltaTime) {
-            if (IsRunning && Time > 0) {
+            if (IsRunning && Time > 0) 
+            {   
                 Time -= deltaTime;
             }
 

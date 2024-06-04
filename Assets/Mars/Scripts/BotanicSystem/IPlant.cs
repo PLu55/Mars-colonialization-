@@ -2,7 +2,7 @@ using PLu.Mars.AtmosphereSystem;
  
 namespace PLu.Mars.BotanicSystem
 {
-    public interface IPlant : IGasNode
+    public interface IPlant : IAtmosphereNode
     {
         float LeafArea { get; }
         void UpdatePlant(float updateInterval);

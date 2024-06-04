@@ -34,7 +34,7 @@ namespace PLu
 
         public new string ToString()
         {
-            return $"Gases(Oxygen: {Oxygen}, Nitrogen: {Nitrogen}, CarbonDioxide: {CarbonDioxide})";
+            return $"Gases(Oxygen: {Oxygen}, Nitrogen: {Nitrogen}, CarbonDioxide: {CarbonDioxide}, Water: {Water})";
         }
     }
 }

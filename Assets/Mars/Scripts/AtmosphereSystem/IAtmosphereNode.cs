@@ -4,8 +4,8 @@ using UnityEngine;
 
 namespace PLu.Mars.AtmosphereSystem
 {
-    public interface IGasNode
+    public interface IAtmosphereNode
     {
-        AtmosphereCompounds GasBalance(float updateInterval);
+        AtmosphereCompounds AtmosphereBalance(float updateInterval);
     }
 }

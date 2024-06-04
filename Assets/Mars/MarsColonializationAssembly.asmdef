@@ -1,7 +1,10 @@
 {
     "name": "MarsColonializationAssembly",
     "rootNamespace": "",
-    "references": [],
+    "references": [
+        "GUID:ec9c871ce22e4e492bce1412040ac602",
+        "GUID:956ca9605138e2a439db73fd4a840f56"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
