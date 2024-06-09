@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using PLu.Mars.AI.HTN.Kernel;
+using PLu.Mars.AI.HTN;
  
 namespace PLu.Mars.AI.HTN.Domains.Transporter
 {
@@ -11,9 +12,19 @@ namespace PLu.Mars.AI.HTN.Domains.Transporter
     {
         public override FluidHTN.Domain<TransporterContext> Create()
         {
-            DomainBuilder2<TransporterContext> builder = new("Transporter");
+            DomainBuilder<TransporterContext> builder = new("Transporter");
 
-            FluidHTN.Domain<TransporterContext> domain = builder.Build();
+            FluidHTN.Domain<TransporterContext> domain = builder
+                .Select("Transport")
+                    .Sequence("Pickup")
+                        .HasState(AIWorldState.HasJob)
+                        .MoveTo(AIDestinationTarget.PickupLocation)
+                        .Wait(2f)
+                        //.SetState(AIWorldState.HasJob, EffectType.PlanAndExecute, false)
+                        //.Pickup()
+                    .End()//.Wait(2f)
+                .End()
+                .Build();
 
 
 

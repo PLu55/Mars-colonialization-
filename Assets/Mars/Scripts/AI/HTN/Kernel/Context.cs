@@ -10,11 +10,22 @@ using UnityEngine.AI;
 
 namespace PLu.Mars.AI.HTN.Kernel
 {
-    public class Context : FluidHTN.Contexts.BaseContext, FluidHTN.IContext
+    public class Context : FluidHTN.Contexts.BaseContext, IContext
     {
         public Context(IAIAgent agent)
         {
+            if (agent == null) throw new ArgumentNullException(nameof(agent));
+            // TODO: Doesen't work, fix it!
+            if (agent is AIAgent<IContext> a)
+            {
+                NavAgent = a.GetComponent<NavMeshAgent>();
+                NavAgent.isStopped = true;
+            }
+            //UnityEngine.Debug.Assert(NavAgent != null, "Coulden't find NavAgent");
+            UnityEngine.Debug.Log("Context.ctor");
             AIAgent = agent;
+            LastTargetPosition = Vector3.zero;
+            CurrentTargetPosition = Vector3.zero;
             base.Init();
         }
         
@@ -26,7 +37,7 @@ namespace PLu.Mars.AI.HTN.Kernel
         public override List<string> LastMTRDebug { get; set; }
         public override bool DebugMTR { get; }
         public override Queue<IBaseDecompositionLogEntry> DecompositionLog { get; set; }
-        public override bool LogDecomposition { get; }
+        public override bool LogDecomposition { get; } = true;
         public override byte[] WorldState { get; } = new byte[Enum.GetValues(typeof(AIWorldState)).Length];
 
         //----------------------------------------------------------------------------------------------------
@@ -34,7 +45,13 @@ namespace PLu.Mars.AI.HTN.Kernel
 
         public IAIAgent AIAgent { get; set;}
 
-        public virtual void Update() {}
+        public virtual void Update()
+        {
+            //UnityEngine.Debug.Log("Context.Update()");
+            
+            CurrentTime = Time.time;
+            DeltaTime = Time.deltaTime;
+        }
 
         //----------------------------------------------------------------------------------------------------
         // Movable agents
@@ -42,6 +59,12 @@ namespace PLu.Mars.AI.HTN.Kernel
         public Vector3 LastTargetPosition { get; set; }
         public NavMeshAgent NavAgent { get; set; }
 
+        //----------------------------------------------------------------------------------------------------
+        // Generic Timer
+
+        public float CurrentTime { get; set; }
+        public float DeltaTime { get; set; }
+        public float GenericTimer { get; set; }
 
         //----------------------------------------------------------------------------------------------------
         // Custom state handling methods

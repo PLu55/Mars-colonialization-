@@ -16,6 +16,9 @@ namespace PLu.Mars.AtmosphereSystem
         [SerializeField] private float _nominalTemprature = 20f;
         [SerializeField] private float _nominalRelativHumility = 55f;
 
+        [Header("Debugging")]
+        [SerializeField] private bool _debug = false;
+
 
         public float NominalTotalPressure => _nominalTotalPressure;
         public float NominalOxygenFraction => _nominalOxygenFraction;
@@ -69,7 +72,7 @@ namespace PLu.Mars.AtmosphereSystem
         }
         public void UpdateGases(float updateInterval, AtmosphereCompounds gases)
         {
-            Debug.Log($"UpdateGases {gases.ToString()}");
+            if (_debug) Debug.Log($"UpdateGases {gases.ToString()}");
         }
         public void UpdateGases(float updateInterval, float totalPressure, float oxygenLevel)
         {

@@ -14,7 +14,7 @@ namespace PLu.Mars.EnergySystem
         new void Awake()
         {
             base.Awake(); 
-            Debug.Log("Solar Power Plant is awake");
+            if (_debug) Debug.Log("Solar Power Plant is awake");
             _powerNodeType = PowerNodeType.PowerProducer;  
         }
         public override float UppdateEffectLevel(float updateInterval, float effectBalance)

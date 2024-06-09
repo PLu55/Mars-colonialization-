@@ -12,7 +12,11 @@ namespace PLu.Mars.HabitatSystem
         [SerializeField] private float _longitude = 0.0f; // Decimal degrees
         [SerializeField] private float _latitude = 0.0f; // Decimal degrees
         [SerializeField] private float _altitude = 0.0f;
+        [Header("Updating")]
         [SerializeField] private float _updateInterval = 60f;
+
+        [Header("Debugging")]
+        [SerializeField] private bool _debug = false;
 
         public float Longitude => (_longitude % 360f + 360f) % 360f; // 0 to 360
         public float Latitude => _latitude;
@@ -58,13 +62,13 @@ namespace PLu.Mars.HabitatSystem
                 UpdateHabitat();
                 _TickTimer.Reset();
                 _TickTimer.Start();
-                Debug.Log("Local Time: " + LocalTime);
-                Debug.Log("Local Solar Time: " + LocalSolarTime);
+                if (_debug) Debug.Log("Local Time: " + LocalTime);
+                if (_debug) Debug.Log("Local Solar Time: " + LocalSolarTime);
             }
         }
         void UpdateHabitat()
         {
-            Debug.Log("Updating Habitat");
+            if (_debug) Debug.Log("Updating Habitat");
             UpdateSolarIrradiance();
         }
         void UpdateSolarIrradiance()
@@ -72,7 +76,7 @@ namespace PLu.Mars.HabitatSystem
             float timeOfDay = Calendar.TimeOfDay(LocalTime);
             float hourAngle = CelestialCalculator.HourAngle((float)(LocalSolarTimeNow / 3600.0));
             _currentSolarIrradiance = CelestialCalculator.SolarIrradiance(Latitude, hourAngle, timeOfDay);
-            Debug.Log($"--- Current Solar Irradiance: {_currentSolarIrradiance}");
+            if (_debug) Debug.Log($"--- Current Solar Irradiance: {_currentSolarIrradiance}");
         }
 
         public static HabitatController FindClosestHabitat(Vector3 position)

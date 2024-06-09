@@ -5,7 +5,7 @@ using FluidHTN;
 
  namespace PLu.Mars.AI.HTN.Kernel
 {
-    public abstract class AgentFactory<T> where T : FluidHTN.IContext
+    public abstract class AgentFactory<T> where T : IContext
     {
         public abstract T CreateContext(AIAgent<T> agent);
 

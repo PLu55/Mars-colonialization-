@@ -1,14 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
- 
+using FluidHTN;
+using UnityEngine.AI;
+
 namespace PLu.Mars.AI.HTN.Kernel
 {
     // TODO: where do we initialze the WorldState?
-    public abstract class AIAgent<T>: MonoBehaviour, IAIAgent where T : FluidHTN.IContext
+    public abstract class AIAgent<T>: MonoBehaviour, IAIAgent where T : IContext
     {
         [Tooltip("The domain definition for this agent")]
         [SerializeField] private DomainDefinition<T> _domainDefinition;
+        [Header("Debug")]
+        [SerializeField] private bool _logDecomposition = false;
         public AgentFactory<T> AIAgentFactory { get; protected set;}
         public T Context { get; private set;}
         public Planner<T> Planner { get; private set;}
@@ -31,15 +34,25 @@ namespace PLu.Mars.AI.HTN.Kernel
             Debug.Assert(Planner != null, "Could not create planner!");
             Domain = DomainDefinition.Create();
             Debug.Assert(Domain != null, "Could not create domain!");
+            if (Context is Context ctx)
+            {
+                ctx.NavAgent = GetComponent<NavMeshAgent>();
+                ctx.NavAgent.isStopped = true;
+                Debug.Log($"Context.NavAgent: {ctx.NavAgent}");
+            }
+
+            Debug.Assert(Context != null, "Could not create context!");
             if (Planner == null || Domain == null || Context == null)
             {
                 Debug.LogError($"Could not initialize agent {name}!");
                 gameObject.SetActive(false);
             }
+            Debug.Log($"Context.LogDecomposition: {Context.LogDecomposition}");
         }
 
         public virtual void Update()
         {
+            Debug.Log("AIAgent.Update()");
             if (Context is Context ctx)
             {
                 ctx.Update();
@@ -47,33 +60,17 @@ namespace PLu.Mars.AI.HTN.Kernel
 
             Planner.Tick(Domain, Context);
 
-            //if (Context.LogDecomposition)
-            //{
-            //  UpdateDecompositionLog();
-            //}
-        }
-        /*private void UpdateDecompositionLog()
-        {
-            while (Context.DecompositionLog?.Count > 0)
+            if (Context.LogDecomposition)
             {
-                var entry = _context.DecompositionLog.Dequeue();
-                var depth = FluidHTN.Debug.Debug.DepthToString(entry.Depth);
-                Console.ForegroundColor = entry.Color;
-                Console.WriteLine($"{depth}{entry.Name}: {entry.Description}");
-                Debug.Log($"{depth}{entry.Name}: {entry.Description}");
-            }
-            Console.ResetColor();
-        }
-                    if (_context.LogDecomposition)
-            {
+                Debug.Log("--- LogDecomposition");
                 UpdateDecompositionLog();
             }
         }
         private void UpdateDecompositionLog()
         {
-            while (_context.DecompositionLog?.Count > 0)
+            while (Context.DecompositionLog?.Count > 0)
             {
-                var entry = _context.DecompositionLog.Dequeue();
+                var entry = Context.DecompositionLog.Dequeue();
                 var depth = FluidHTN.Debug.Debug.DepthToString(entry.Depth);
                 Console.ForegroundColor = entry.Color;
                 Console.WriteLine($"{depth}{entry.Name}: {entry.Description}");
@@ -81,22 +78,23 @@ namespace PLu.Mars.AI.HTN.Kernel
             }
             Console.ResetColor();
         }
+
         private void OnDrawGizmos()
         {
-            if (_context == null)
+            if (Context == null)
                 return;
 
             //_senses?.DrawGizmos(_context);
             //_sensory?.DrawGizmos(_context);
 
     #if UNITY_EDITOR
-            var task = _planner.GetCurrentTask();
+            var task = Planner.GetCurrentTask();
             if (task != null)
             {
                 //Handles.Label(_context.Head.transform.position + Vector3.up, task.Name);
             }
     #endif
         }
-        */
+        
     }
 }

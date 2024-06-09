@@ -1,3 +1,4 @@
+using FluidHTN;
 
 namespace PLu.Mars.AI.HTN.Kernel
 {

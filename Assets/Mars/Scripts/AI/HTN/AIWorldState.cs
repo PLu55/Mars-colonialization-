@@ -2,7 +2,7 @@ namespace PLu.Mars.AI.HTN
 {
     public enum AIWorldState
     {
-        HasIngredient,
+        HasJob,
         HasResourceInSight,
         HasEnemyInSight,
         HasEnemy,
@@ -14,6 +14,8 @@ namespace PLu.Mars.AI.HTN
     public enum AIDestinationTarget
     {
         None,
+        PickupLocation,
+        DropoffLocation,
         Resource,
         Workshop,
         Enemy

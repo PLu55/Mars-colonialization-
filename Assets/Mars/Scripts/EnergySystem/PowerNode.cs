@@ -11,6 +11,8 @@ namespace PLu.Mars.EnergySystem
         [SerializeField] protected PowerNodeType _powerNodeType = PowerNodeType.PowerConsumer;
         [SerializeField] private HabitatController _habitat;
         [SerializeField] private float _nominalEffect = 0f;
+        [Header("Debugging")]
+        [SerializeField] protected bool _debug = false;
 
 
         private EnergyController _energyController;
@@ -21,16 +23,16 @@ namespace PLu.Mars.EnergySystem
         public EnergyController EnergyController => _energyController;
         protected void Awake()
         {
-            Debug.Log($"Power Node({this.GetType().Name}) is awake");
+            if (_debug) Debug.Log($"Power Node({this.GetType().Name}) is awake");
     
             _habitat = HabitatController.FindClosestHabitat(this.transform.position);
-            Debug.Assert(_habitat != null, "Habitat is not found in PowerNode");
+            Debug.Assert(_habitat != null, $"Habitat is not found in {name}");
         }
         void Start()
         {
-            Debug.Log("Power Node is started");
+            if (_debug) Debug.Log("Power Node is started");
             _energyController = _habitat.GetComponent<EnergyController>();
-            Debug.Assert(_energyController != null, "Energy Controller is not found in PowerNode");
+            Debug.Assert(_energyController != null, $"Energy Controller is not found in {name}");
             _energyController.AddPowerNode(this);
         }
         public virtual float UppdateEffectLevel(float updateInterval, float effectBalance)

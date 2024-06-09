@@ -1,45 +1,43 @@
-//using FluidHTN;
-using FluidHTN.Operators;
-using UnityEngine;
+using FluidHTN;
 using PLu.Mars.AI.HTN.Kernel;
 
 namespace PLu.Mars.AI.HTN.Operators
 {
     public class MoveToOperator : IOperator
     {
-        public FluidHTN.TaskStatus StartNavigation(FluidHTN.IContext context)
+        public TaskStatus StartNavigation(IContext context)
         { 
             if (context is Context ctx)
             {
                 ctx.NavAgent.isStopped = false;
                 if (ctx.NavAgent.SetDestination(ctx.CurrentTargetPosition))
                 {
-                    return FluidHTN.TaskStatus.Continue;
+                    return TaskStatus.Continue;
                 }
 
-                return FluidHTN.TaskStatus.Failure;
+                return TaskStatus.Failure;
             }  
             
-            return FluidHTN.TaskStatus.Failure;
+            return TaskStatus.Failure;
         }
 
-        public FluidHTN.TaskStatus UpdateNavigation(FluidHTN.IContext context)
+        public TaskStatus UpdateNavigation(IContext context)
         {
             if (context is Context ctx)
             {
                 if (ctx.NavAgent.remainingDistance <= ctx.NavAgent.stoppingDistance)
                 {
                     ctx.NavAgent.isStopped = true;
-                    return FluidHTN.TaskStatus.Success;
+                    return TaskStatus.Success;
                 }
 
-                return FluidHTN.TaskStatus.Continue;
+                return TaskStatus.Continue;
             }
 
             return FluidHTN. TaskStatus.Failure;
         }
 
-        public FluidHTN.TaskStatus Update(FluidHTN.IContext context)
+        public TaskStatus Update(IContext context)
         {
             if (context is Context ctx)
             {
@@ -53,9 +51,9 @@ namespace PLu.Mars.AI.HTN.Operators
                 }
             }
 
-            return FluidHTN.TaskStatus.Failure;
+            return TaskStatus.Failure;
         }
-        public void Stop(FluidHTN.IContext context)
+        public void Stop(IContext context)
         {
             if (context is Context ctx)
             {
@@ -63,7 +61,7 @@ namespace PLu.Mars.AI.HTN.Operators
             }
         }
 
-        public void Aborted(FluidHTN.IContext context)
+        public void Aborted(IContext context)
         {
             if (context is Context ctx)
             {

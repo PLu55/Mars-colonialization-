@@ -1,12 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting.YamlDotNet.RepresentationModel;
-using UnityEngine;
- 
+using FluidHTN;
 
 namespace PLu.Mars.AI.HTN.Kernel
 {    
-    public interface IDomainDefinition<T> where T : FluidHTN.IContext
+    public interface IDomainDefinition<T> where T : IContext
     {
         FluidHTN.Domain<T> Create();
     }   

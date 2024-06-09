@@ -24,7 +24,7 @@ namespace PLu.Mars.AI.HTN.Domains.Transporter
     {
         public TransporterAgent()
         {
-            Debug.Log("TransporterAgent()");
+            Debug.Log("Constructing TransporterAgent()");
         }
         new void Awake()
         {
