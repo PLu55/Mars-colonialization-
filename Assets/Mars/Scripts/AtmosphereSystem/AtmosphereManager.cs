@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using PLu.Utilities;
  
 namespace PLu.Mars.AtmosphereSystem
 {
-    public class AtmosphereController : MonoBehaviour
+    public class AtmosphereManager : MonoBehaviour
     {
         [Header("Atmosphere")]
-        [Tooltip("Wanted atmospheric pressure in kPa, nnormal range 50 to 70 kPa")]
+        [Tooltip("Wanted atmospheric pressure in kPa, normal range 50 to 70 kPa")]
         [SerializeField] private float _nominalTotalPressure = 60.0f;
         [Tooltip("Wanted partial oxygen pressure")]
         [SerializeField] private float _nominalOxygenFraction = 0.35f;
@@ -15,6 +16,9 @@ namespace PLu.Mars.AtmosphereSystem
         [SerializeField] private float _nominalNitrogenFraction = 0.65f;
         [SerializeField] private float _nominalTemprature = 20f;
         [SerializeField] private float _nominalRelativHumility = 55f;
+
+        [Header("Update Interval")]
+        [SerializeField] private float _updateInterval = 60f;
 
         [Header("Debugging")]
         [SerializeField] private bool _debug = false;
@@ -47,14 +51,24 @@ namespace PLu.Mars.AtmosphereSystem
         
         private float _oxygenVolumeRatio;
 
+        private RepeatTimer _updateTimer;
+        private List<IAtmosphereNode> _atmosphereNodes;
+
+        private void Awake()
+        {
+            _atmosphereNodes = new List<IAtmosphereNode>();
+        }
 
         void Start()
         {
             Initialization();
+            _updateTimer = new RepeatTimer(_updateInterval);
+            _updateTimer.Start();
+            _updateTimer.OnTimerRepeat += UpdateAtmosphere;
         }
         void Update()
         {
-            
+            _updateTimer.Tick(Time.deltaTime);
         }
 
         private void Initialization()
@@ -65,19 +79,36 @@ namespace PLu.Mars.AtmosphereSystem
             _partialNitrogenPressure = _nominalNitrogenFraction * _nominalTotalPressure;
             _partialCarbonDioxidePressure = _nominalCarbonDioxideFraction * _nominalTotalPressure;
         }
-        public void UpdateAtmosphere()
+        public void UpdateAtmosphere(float deltaTime)
         {
-            _oxygenVolumeRatio = TotalPressure / PartialOxygenPressure;
-            _oxygenLevel = _oxygenVolumeRatio / (1 + _oxygenVolumeRatio);
+            if (_debug) Debug.Log($"UpdateAtmosphere {deltaTime}");
+
+            //_oxygenVolumeRatio = TotalPressure / PartialOxygenPressure;
+            //_oxygenLevel = _oxygenVolumeRatio / (1 + _oxygenVolumeRatio);
+
+            foreach (IAtmosphereNode node in _atmosphereNodes)
+            {
+                AtmosphereCompounds compounds = node.AtmosphereBalance(_updateInterval);
+                _totalPressure += compounds.TotalPressure;
+                _partialOxygenPressure += compounds.PartialOxygenPressure;
+                _partialNitrogenPressure += compounds.PartialNitrogenPressure;
+                _partialCarbonDioxidePressure += compounds.PartialCarbonDioxidePressure;
+            }
         }
-        public void UpdateGases(float updateInterval, AtmosphereCompounds gases)
-        {
-            if (_debug) Debug.Log($"UpdateGases {gases.ToString()}");
-        }
+
         public void UpdateGases(float updateInterval, float totalPressure, float oxygenLevel)
         {
             _totalPressure = totalPressure;
             _oxygenLevel = oxygenLevel;
+        }
+
+        public void AddAtmosphereNode(IAtmosphereNode node)
+        {
+            if (_debug) Debug.Log($"AddAtmosphereNode {node.ToString()}");
+        }
+        public void RemoveAtmosphereNode(IAtmosphereNode node)
+        {
+            if (_debug) Debug.Log($"RemoveAtmosphereNode {node.ToString()}");
         }
     }
 }
