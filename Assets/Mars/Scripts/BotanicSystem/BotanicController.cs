@@ -12,17 +12,17 @@ namespace PLu.Mars.BotanicSystem
         [SerializeField] private float _updateInterval = 3600f;
         private CountdownTimer _timer;
         private List<IPlant> _plants;
-        private HabitatController _habitatController;
-        private AtmosphereController _atmosphereController;
+        private HabitatManager _habitatController;
+        private AtmosphereManager _atmosphereController;
 
         public float UpdateIntervall => _updateInterval;
-        public HabitatController HabitatController => _habitatController;
+        public HabitatManager HabitatController => _habitatController;
 
         void Awake()
         {
-            _habitatController = HabitatController.FindClosestHabitat(transform.position);
+            _habitatController = HabitatManager.FindClosestHabitat(transform.position);
             Debug.Assert(_habitatController != null, "Habitat Controller is not found in PlantController");
-            _atmosphereController = FindObjectOfType<AtmosphereController>();
+            _atmosphereController = FindObjectOfType<AtmosphereManager>();
             Debug.Assert(_atmosphereController != null, "AtmosphereController is not found in PlantController");
             _plants = new List<IPlant>();
         }
@@ -69,7 +69,7 @@ namespace PLu.Mars.BotanicSystem
         }
         public static BotanicController FindClosestPlantController(Vector3 position)
         {
-            HabitatController _habitatController = HabitatController.FindClosestHabitat(position);  
+            HabitatManager _habitatController = HabitatManager.FindClosestHabitat(position);  
             if (_habitatController == null)
             {
                 Debug.LogError("Habitat Controller is not found in PlantController");

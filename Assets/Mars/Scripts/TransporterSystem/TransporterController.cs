@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using FluidHTN;
 using PLu.Utilities;
-using PLu.Mars.Kernel;
+using PLu.Mars.Core;
 using PLu.Mars.AI.HTN;
 using PLu.Mars.AI.HTN.Domains.Transporter;
-using PLu.Mars.Facillities;
+using PLu.Mars.FacilitySystem;
 
 namespace PLu.Mars.TransportSystem
 {
@@ -36,7 +36,7 @@ namespace PLu.Mars.TransportSystem
         }
         void Update()
         {
-            _TickTimer.Tick(GameController.Instance.deltaTime);
+            _TickTimer.Tick(WorldManager.Instance.deltaTime);
             if (_TickTimer.IsFinished)
             {
                 UpdateTransportController();

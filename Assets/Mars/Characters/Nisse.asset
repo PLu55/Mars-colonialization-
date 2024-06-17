@@ -1,0 +1,100 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5e690c50eba287bfb58f664b75f7a9b, type: 3}
+  m_Name: Nisse
+  m_EditorClassIdentifier: 
+  _stats:
+    Health: 0
+    MaxHealth: 0
+    Intelligence: 0
+    MaxIntelligence: 0
+    Energy: 0
+    MaxEnergy: 0
+    Hunger: 0
+    MaxHunger: 0
+    Thirst: 0
+    MaxThirst: 0
+    Oxygen: 0
+    MaxOxygen: 0
+    Temperature: 0
+    MaxTemperature: 0
+    Comfort: 0
+    MaxComfort: 0
+    Stress: 0
+    MaxStress: 0
+    Happiness: 0
+    MaxHappiness: 0
+    Social: 0
+    MaxSocial: 0
+    Hygiene: 0
+    MaxHygiene: 0
+    Fun: 0
+    MaxFun: 0
+    Fitness: 0
+    MaxFitness: 0
+    Sleep: 0
+    MaxSleep: 0
+    Morale: 0
+    MaxMorale: 0
+    Knowledge: 0
+    MaxKnowledge: 0
+    Skill: 0
+    MaxSkill: 0
+    Experience: 0
+    MaxExperience: 0
+    Level: 0
+    MaxLevel: 0
+    Money: 0
+    MaxMoney: 0
+    Reputation: 0
+    MaxReputation: 0
+    Trust: 0
+    MaxTrust: 0
+    Influence: 0
+    MaxInfluence: 0
+    Authority: 0
+    MaxAuthority: 0
+    Power: 0
+    MaxPower: 0
+    Wisdom: 0
+    MaxWisdom: 0
+    Charisma: 0
+    MaxCharisma: 0
+    Luck: 0
+    MaxLuck: 0
+    Agility: 0
+    MaxAgility: 0
+    Strength: 0
+    MaxStrength: 0
+    Endurance: 0
+    MaxEndurance: 0
+    Dexterity: 0
+    MaxDexterity: 0
+    Vitality: 0
+    MaxVitality: 0
+    Willpower: 0
+    MaxWillpower: 0
+    Perception: 0
+    MaxPerception: 0
+    Reflex: 0
+    MaxReflex: 0
+    Resilience: 0
+    MaxResilience: 0
+    Resistance: 0
+    MaxResistance: 0
+    Immunity: 0
+    MaxImmunity: 0
+    Regeneration: 0
+    MaxRegeneration: 0
+    Healing: 0
+    MaxHealing: 0
+  _skills: 0100000002000000

@@ -30,7 +30,7 @@ namespace PLu.Mars.BotanicSystem
 
         public float OxygenProduction => _oxygenProductionIndex * LeafArea; // l per h
 
-        private HabitatController _habitatController;
+        private HabitatManager _habitatController;
 
         new void Start()
         {
