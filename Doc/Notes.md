@@ -24,7 +24,8 @@ The game is a strategy and simulation game where the player arrives on Mars with
 ### Gameplay Mechanics
 
 * Resource Management
-  * Resources: Food, water, oxygen, minerals, energy.
+  * Essential Resources: Food, water, oxygen, energy.
+  * Other Resources: Minerals
 * Production and Consumption: Each habitat produces and consumes resources. The player must ensure a balance to prevent shortages.
 
 * Faction Dynamics
@@ -34,6 +35,8 @@ The game is a strategy and simulation game where the player arrives on Mars with
 * Player Objectives
   * Unity Path: Work towards uniting the factions peacefully. Achieve this through diplomacy, fulfilling common goals, and solving shared problems.
   * Power Path: Attempt to take control by consolidating power, either through political maneuvering or force.
+  * Destructive Path: Working towards destruction. Achieved through dividing,
+  sabotage and violence.
 
 * Diplomacy and Politics
   * Dialogue System: Interact with faction leaders through a dialogue system. Choices in conversations can affect relationships and outcomes.
@@ -192,7 +195,7 @@ Mars' Elliptical Orbit
 
 * Seasonal Differences:
     Southern Hemisphere: Experiences more extreme seasons because perihelion occurs during the southern summer and aphelion during the southern winter. This leads to hotter summers and colder winters compared to the northern hemisphere.
-* Northern Hemisphere: Has milder seasons, as aphelion occurs during the northern summer and perihelion during the northern winter.
+    Northern Hemisphere: Has milder seasons, as aphelion occurs during the northern summer and perihelion during the northern winter.
 
 * Solar Power Generation:
     Solar panels and other solar energy systems will need to be designed to handle the fluctuations in solar intensity.
@@ -263,17 +266,48 @@ Mars has a thin atmosphere, 95% carbon dioxide, 2.7% nitrogen, 1.6% argon, and t
 
 Abilities, Jobs, Quests, Education, Research, Development tree, Human, Repair, Extract
 Fishtank, Training, Hydroponics, Aquaponik, Food, Water, Training gains abilities,
-Events, Weather, Inventory, Navigation, Map, Solar Storm, Mission, News
+Events, Weather, Inventory, Navigation, Map, Solar Storm, Mission, News, Quarry, Mine
 
 ## Job System
+
+### Job Manager
+
+### Job
+
+A Job is something an agent can do. It has an urgency level, a blueprint, a type and
+requirements.
+
+Urgency levels: Emergency, Critical, High, Medium, Low.
+A Job with a higher level then the agents current job must be taken and the current job will be suspended.
+
+### Job Schedule
+
+A Job Schedule is a list with job priorities
+
+Type, Required skills, Priority, Blueprint
+
+Job types: Research,
+
+#### Research
+
+A Researching generates research points for the faculty that he belongs to.
 
 ## Ability System
 
 What a person or agent can do.
 
+## Skill System
+
+What a person or agent can do.
+
+## Science Tree
+
+Research points, faculties?
+Node: Name, Cost, Faculty
+
 ## Faction System
 
-## Facillities
+## Facilities
 
 * Waterplant
 * Water tank (storage)
@@ -282,16 +316,20 @@ What a person or agent can do.
 * Storage, different types, constraints what can be stored
 * Food storage
 * Gas storage
-* Mineral extraction, Mine (surface, underground)
+* Mineral extraction, Quarry, Mine (surface, underground)
 * Metal production
 * Workshop, different kinds
 * Solar Power Plant
 * Nuclear Power Plant
 * Living Quarters
-* Administratrive Buildings
-* Hospital, Medical facillity
+* Administrative Buildings
+* Hospital, Medical facility
 
-## Items
+## Inventory System
+
+### Items
+
+Items are things that can be put in an inventory, It has type, quantity and weight.
 
 * Tools
 * Food
@@ -299,6 +337,7 @@ What a person or agent can do.
 * Bomb
 * Weapon
 * Clothes
+* Materials
 
 ## Vehicels
 
@@ -306,22 +345,30 @@ Transporter
 
 ## Occupations
 
+Occupations are permanent jobs.
+
 * Medic, different grades
+  treats illness and wounds
 * Miner
-* Engineer, different speciality
+* Prospector
+* Builder
+* Engineer, different specialties
+    Maintainer
 * Biologist
-* Researcher, different kinds
-* Transporter, Physisist
+* Researcher, different kinds, faculties
+* Transporter
+* Physicist
 * Guard
 * Administrator
 * Agriculture expert
+
 
 ## Humans
 
 * Name
 * Age
 * Health
-* Inteligens
+* Intelligent
 * Strength
 * Personality
 * Mentality
@@ -329,13 +376,251 @@ Transporter
 * Duties
 * Authorities
 * Position (work)
+* Skills
+* Abilities
 
-## Droids, Robots
+## Droids, Robots, Rovers
 
 
-## Transpoprter
+## Transporter
 
 A transporter is a vehicle that can transport gods from one place to another. 
 It has a capacity. It can have different constraint what to transport and under
 what conditions. In example it can only work inside the habitat or it can be
 used outside of the habitat. It can transport food, has cooling system.
+
+## Resourced extraction
+
+  * Ice: Used for water, oxygen and hydrogen production
+  * Regolith: Used for construction and manufacturing.
+  * Metals: Iron, aluminum, and other metals for building and machinery.
+  * Silicates: For glass and electronics.
+
+Water is fundamental to the colony. Extraction of the polar ice caps and
+potentially in subterranean reservoirs.
+
+On Mars, several metals can be extracted from the planet's surface and subsurface,
+primarily from the regolith (Martian soil) and mineral deposits. Here are some of 
+the key metals that can be extracted on Mars:
+
+1. Iron (Fe)
+
+    Sources: Hematite (Fe2O3), Magnetite (Fe3O4), and other iron oxides.
+    Uses: Construction materials, tools, and machinery.
+
+2. Aluminum (Al)
+
+    Sources: Bauxite and other aluminum-bearing minerals, though bauxite is less common on Mars.
+    Uses: Lightweight structural components, packaging, and electronics.
+
+3. Magnesium (Mg)
+
+    Sources: Magnesium-rich silicates such as olivine and pyroxene.
+    Uses: Alloys, structural materials, and electronics.
+
+4. Titanium (Ti)
+
+    Sources: Ilmenite (FeTiO3) and rutile (TiO2).
+    Uses: High-strength, lightweight alloys for aerospace, tools, and medical devices.
+
+5. Silicon (Si)
+
+    Sources: Silicates such as quartz (SiO2) and various silicate minerals.
+    Uses: Semiconductors, solar cells, glass, and ceramics.
+
+6. Chromium (Cr)
+
+    Sources: Chromite (FeCr2O4).
+    Uses: Stainless steel and other corrosion-resistant alloys.
+
+7. Nickel (Ni)
+
+    Sources: Nickel-bearing sulfides and laterites.
+    Uses: Alloys, batteries, and plating.
+
+8. Copper (Cu)
+
+    Sources: Copper sulfides, oxides, and native copper.
+    Uses: Electrical wiring, electronics, and heat exchangers.
+
+9. Manganese (Mn)
+
+    Sources: Manganese oxides such as pyrolusite (MnO2).
+    Uses: Steel production and batteries.
+
+10. Zinc (Zn)
+
+    Sources: Sphalerite (ZnS) and other zinc minerals.
+    Uses: Galvanizing steel, alloys, and batteries.
+
+11. Lithium (Li)
+
+    Sources: Lithium-bearing minerals such as spodumene and clays.
+    Uses: Batteries and electronics.
+
+Extraction and Processing Techniques
+
+To extract these metals on Mars, various mining and processing techniques will be required:
+
+    Surface Mining: Excavation of regolith and rock to access ore deposits.
+    Leaching: Using solvents to dissolve and extract metals from ores.
+    Electrolysis: Applying electrical currents to extract metals from their compounds, especially useful for extracting aluminum and magnesium.
+    Thermal Reduction: Using heat to reduce metal oxides to pure metals, potentially using local resources like carbon from CO2 to assist in the reduction process.
+    Hydrometallurgy: Using aqueous chemistry to extract metals from ores, suitable for metals like copper and nickel.
+
+Challenges
+
+    Energy Requirements: Mining and processing metals on Mars will require significant amounts of energy, likely generated from solar panels, nuclear reactors, or other renewable sources.
+    Infrastructure: Establishing the necessary infrastructure for mining and refining operations will be a significant logistical challenge.
+    Automation: Due to the harsh environment and distance from Earth, much of the mining and processing will need to be automated.
+
+Surface-Extractable Minerals
+
+    Regolith:
+        Contains a mix of minerals including silicates, oxides, and sulfates.
+        Used for construction materials (e.g., bricks, concrete) and soil for growing plants in greenhouses.
+
+    Iron Oxides:
+        Hematite (Fe2O3), Magnetite (Fe3O4).
+        Found abundantly on the surface, giving Mars its reddish color.
+        Used for iron production and construction.
+
+    Silicates:
+        Includes minerals such as feldspar, olivine, and pyroxene.
+        Commonly found in the Martian regolith.
+        Used for glass production and construction materials.
+
+    Sulfates:
+        Gypsum (CaSO4·2H2O), Epsomite (MgSO4·7H2O).
+        Often found in sedimentary deposits and exposed by erosion.
+        Used for construction and water purification.
+
+    Phyllosilicates (Clay Minerals):
+        Montmorillonite, Kaolinite.
+        Indicates past presence of water, found in ancient lake beds and surface deposits.
+        Potential for construction and soil conditioning.
+
+Deep Mine-Extractable Minerals
+
+    Metals (Nickel, Chromium, Copper):
+        Nickel-bearing sulfides, Chromite (FeCr2O4), and Copper sulfides.
+        Typically found in deeper, more concentrated deposits that require mining.
+        Used for alloys, electronics, and industrial applications.
+
+    Magnesium and Aluminum Compounds:
+        Magnesium-rich silicates (e.g., olivine) and Aluminum-bearing minerals (e.g., bauxite).
+        While surface deposits exist, higher concentrations are likely deeper.
+        Used for lightweight structures and various alloys.
+
+    Lithium:
+        Found in spodumene and other lithium-bearing minerals.
+        Likely requires deep mining to access significant quantities.
+        Used for batteries and energy storage systems.
+
+    Rare Earth Elements (REEs):
+        Includes minerals such as bastnäsite and monazite.
+        Typically found in small, concentrated deposits that require targeted deep mining.
+        Essential for electronics, magnets, and various high-tech applications.
+
+    Silica and Quartz:
+        Found in quartz veins and silica-rich deposits.
+        Some surface deposits exist, but larger, purer deposits are likely deeper.
+        Used for glass production and electronics.
+
+Extraction Techniques
+
+    Surface Mining:
+        Prospecting and Sampling: Initial surveys to identify mineral-rich areas.
+        Excavation: Using rovers and automated machinery to collect regolith and surface rocks.
+        Screening and Processing: Separating valuable minerals from the regolith.
+
+    Subsurface Mining:
+        Drilling and Blasting: To access deeper ore bodies.
+        Shaft Mining: Creating vertical or inclined shafts to reach mineral deposits.
+        Tunnel Mining: Horizontal tunnels to follow ore veins.
+        Automated Mining Systems: Using robotics to perform deep mining operations due to harsh conditions.
+
+Challenges and Considerations
+
+    Energy Supply: Mining operations require significant energy, necessitating robust energy infrastructure (solar, nuclear).
+    Environmental Hazards: Dust storms, radiation, and extreme temperatures pose risks to both machinery and human operators.
+    Logistics and Transport: Efficient transport systems to move extracted materials to processing facilities.
+    Automation and Robotics: Minimizing human exposure to hazards through automated systems.
+
+    Regolith on Mars
+
+Regolith refers to the layer of loose, heterogeneous material covering solid rock. On Mars, regolith is made up of dust, soil, broken rock, and other related materials and is a key focus for Martian resource extraction due to its abundance and diverse composition.
+Composition of Martian Regolith
+
+Martian regolith is primarily composed of:
+
+    Silicates:
+        Dominated by minerals like feldspar, olivine, and pyroxene.
+        Basis for glass and ceramics production.
+
+    Iron Oxides:
+        Hematite (Fe2O3), Magnetite (Fe3O4).
+        Responsible for Mars' reddish color.
+        Can be processed for iron extraction.
+
+    Sulfates:
+        Gypsum (CaSO4·2H2O), Epsomite (MgSO4·7H2O).
+        Indicators of past water activity.
+        Useful for construction materials and water purification.
+
+    Phyllosilicates (Clay Minerals):
+        Montmorillonite, Kaolinite.
+        Suggest historical presence of water.
+
+    Volatiles:
+        Water ice and possible hydrated minerals.
+        Crucial for life support systems and fuel production.
+
+### Uses of Regolith
+
+    Construction:
+        Brick and Concrete: Processed regolith can be used to create bricks and concrete for building habitats and infrastructure.
+        3D Printing: Regolith can be used as raw material for 3D printing structures, reducing the need to transport building materials from Earth.
+
+    Water Extraction:
+        Ice Deposits: Water ice within the regolith can be extracted by heating and used for drinking, agriculture, and electrolysis to produce oxygen and hydrogen.
+
+    Oxygen Production:
+        Electrolysis of Water: Water extracted from regolith can be split into oxygen and hydrogen.
+        MOXIE (Mars Oxygen ISRU Experiment): A technology demonstrated by the Mars 2020 Perseverance rover, which extracts oxygen from atmospheric CO2, can be adapted to use regolith-based resources.
+
+    Metal Extraction:
+        Iron: Extracted from iron oxides for construction and manufacturing.
+        Silicon: Processed from silicates for electronics and solar panels.
+
+    Soil for Plant Growth:
+        Greenhouses: Regolith can be used as a base for soil in controlled agricultural environments, providing a medium for plant growth after being treated to remove toxic compounds.
+
+Extraction and Processing Techniques
+
+    Mechanical Excavation:
+        Rovers and automated machines can be used to excavate and transport regolith.
+
+    Heating and Electrolysis:
+        ISRU (In-Situ Resource Utilization): Techniques to heat regolith to release volatiles and extract oxygen and metals.
+        Microwave Heating: Using microwaves to heat regolith for extracting water and volatiles.
+
+    Sintering:
+        Heating regolith to form solid, durable bricks without the need for additional binding agents.
+
+    Magnetic Separation:
+        Using magnetic fields to separate iron-rich particles from the regolith.
+
+Challenges
+
+    Dust Management:
+        Martian dust is fine and pervasive, posing challenges for machinery and human health.
+
+    Energy Requirements:
+        Mining and processing regolith are energy-intensive, requiring reliable power sources such as solar panels, nuclear reactors, or other renewable energy systems.
+
+    Automation:
+        Minimizing human intervention by using advanced robotics and AI to perform tasks in the harsh Martian environment.
+
+    Environmental Hazards:
+        Dust storms, radiation, and temperature extremes can disrupt operations and damage equipment.
