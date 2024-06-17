@@ -70,7 +70,7 @@ namespace FluidHTN
         /// <summary>
         /// Whether our planning system should log our decomposition. Specially condition success vs failure.
         /// </summary>
-        bool LogDecomposition { get; }
+        bool LogDecomposition { get; set; }
 
         /// <summary>
         /// 

@@ -21,7 +21,7 @@ namespace FluidHTN.Contexts
         public abstract List<string> LastMTRDebug { get; set; }
         public abstract bool DebugMTR { get; }
         public abstract Queue<IBaseDecompositionLogEntry> DecompositionLog { get; set; }
-        public abstract bool LogDecomposition { get; }
+        public abstract bool LogDecomposition { get; set; }
         public Queue<PartialPlanEntry> PartialPlanQueue { get; set; } = new Queue<PartialPlanEntry>();
         public bool HasPausedPartialPlan { get; set; } = false;
 
