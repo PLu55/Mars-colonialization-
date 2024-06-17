@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using PLu.Utilities;
-using PLu.Mars.Kernel;
+using PLu.Mars.Core;
 
 namespace PLu.Mars.HabitatSystem
 {
-    public class HabitatController : MonoBehaviour
+    public class HabitatManager : MonoBehaviour
     {
         [Header("Habitat Location")]
         [SerializeField] private float _longitude = 0.0f; // Decimal degrees
@@ -23,11 +23,11 @@ namespace PLu.Mars.HabitatSystem
         public float Altitude => _altitude;
 
         public int TimeZone => Mathf.RoundToInt(Longitude / 15f);
-        public double LocalTime => GameController.Instance.GlobalTime + TimeZone * 3600f; // local time in seconds
+        public double LocalTime => WorldManager.Instance.GlobalTime + TimeZone * 3600f; // local time in seconds
         public double LocalSolarTime => LocalTime + (Longitude - TimeZone * 15f) * 240f; // local solar time in seconds
 
         public double LocalSolarTimeNow => _localSolarTimeNow;
-        public float CurrentSolarIrradiance => _currentSolarIrradiance;
+        public float CurrentSolarIrradiance => _currentSolarIrradiance; // W/m^2
         public float DomeRadius => _domeRadius;
         public float DomeArea => 2.0f * Mathf.PI * Mathf.Pow(DomeRadius, 2); // Surface area of a hemisphere
         public float DomeVolume => (4.0f / 6.0f) * Mathf.PI * Mathf.Pow(DomeRadius, 3); // Volume of a hemisphere
@@ -56,7 +56,7 @@ namespace PLu.Mars.HabitatSystem
         void Update()
         {
             _localSolarTimeNow = LocalSolarTime;
-            _TickTimer.Tick(GameController.Instance.deltaTime);
+            _TickTimer.Tick(WorldManager.Instance.deltaTime);
             if (_TickTimer.IsFinished)
             {
                 UpdateHabitat();
@@ -79,7 +79,7 @@ namespace PLu.Mars.HabitatSystem
             if (_debug) Debug.Log($"--- Current Solar Irradiance: {_currentSolarIrradiance}");
         }
 
-        public static HabitatController FindClosestHabitat(Vector3 position)
+        public static HabitatManager FindClosestHabitat(Vector3 position)
         {
             GameObject[] habitats = GameObject.FindGameObjectsWithTag("Habitat");
 
@@ -99,7 +99,7 @@ namespace PLu.Mars.HabitatSystem
                 Debug.LogError("Not Habitat: found ");
                 return null;
             }
-            HabitatController habitatController = closestHabitat.GetComponent<HabitatController>();
+            HabitatManager habitatController = closestHabitat.GetComponent<HabitatManager>();
             Debug.Assert(habitatController != null, "Habitat Controller is not found in Habitat");
             return habitatController;
         }
