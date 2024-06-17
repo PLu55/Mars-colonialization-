@@ -4,7 +4,7 @@ using Codice.Client.Common;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace PLu.Mars.Kernel
+namespace PLu.Mars.Core
 {
     public class Movable : MonoBehaviour, IMovable
     {

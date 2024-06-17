@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
  
-namespace PLu.Mars.Kernel
+namespace PLu.Mars.Core
 {
     public class Calendar : MonoBehaviour
     {

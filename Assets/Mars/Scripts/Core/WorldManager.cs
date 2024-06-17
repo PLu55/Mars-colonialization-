@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
  
-namespace PLu.Mars.Kernel
+namespace PLu.Mars.Core
 {   
     [DefaultExecutionOrder(-100)]    
-    public class GameController : MonoBehaviour
+    public class WorldManager : MonoBehaviour
     {
         [Header("Global Time Settings")]
         [SerializeField] double _globalTime = 0f;
@@ -13,14 +13,14 @@ namespace PLu.Mars.Kernel
         [SerializeField] float _timeScale = 1.0f;
         [SerializeField] double _timeOffset = 0.0;
 
-        public static GameController Instance => _instance;
+        public static WorldManager Instance => _instance;
         public float deltaTime  => _deltaTime * (float)_timeScale;
         public double GlobalTime => _globalTime;
         public void SetTimeScale(float timeScale) => _timeScale = timeScale;
         public float DeltaTime => Time.deltaTime * (float)_timeScale;
 
 
-        private static GameController _instance;
+        private static WorldManager _instance;
         private float _deltaTime;
         private GameObject _player;
         

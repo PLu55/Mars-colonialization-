@@ -4,14 +4,14 @@ using UnityEngine;
 using PLu.Mars.HabitatSystem;
 using PLu.Utilities;
  
-namespace PLu.Mars.Kernel
+namespace PLu.Mars.Core
 {
-    public interface IController
+    public interface IManager
     {
         CountdownTimer UpdateTimer { get; }
-        HabitatController HabitatController { get; }
+        HabitatManager HabitatManager { get; }
 
-        void UpdateController(float updateInterval);
+        void UpdateManager(float updateInterval);
 
     }
 }

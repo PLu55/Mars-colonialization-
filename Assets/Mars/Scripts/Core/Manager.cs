@@ -5,22 +5,22 @@ using UnityEngine;
 using PLu.Mars.HabitatSystem;
 using PLu.Utilities;
  
-namespace PLu.Mars.Kernel
+namespace PLu.Mars.Core
 {
-    public abstract class Controller : MonoBehaviour, IController
+    public abstract class Manager : MonoBehaviour, IManager
     {
         [Header("Controller Settings")]
         [Tooltip("The controller update interval in seconds.")]
         [SerializeField] private float _updateInterval = 1f;
-        public  HabitatController HabitatController => _habitatController;
+        public  HabitatManager HabitatManager => _habitatManager;
         public CountdownTimer UpdateTimer => _updateTimer;
-        private HabitatController _habitatController;
+        private HabitatManager _habitatManager;
         private CountdownTimer _updateTimer;
 
 
         void Awake()
         {
-            _habitatController = HabitatController.FindClosestHabitat(transform.position);
+            _habitatManager = HabitatManager.FindClosestHabitat(transform.position);
             _updateTimer = new CountdownTimer(_updateInterval);
         }
         void Start()
@@ -29,14 +29,14 @@ namespace PLu.Mars.Kernel
         }
         void Update()
         {
-            _updateTimer.Tick(GameController.Instance.deltaTime);
+            _updateTimer.Tick(WorldManager.Instance.deltaTime);
             if (_updateTimer.IsFinished)
             {
-                UpdateController(_updateInterval);
+                UpdateManager(_updateInterval);
                 _updateTimer.Reset();
                 _updateTimer.Start();
             }
         }
-        public abstract void UpdateController(float updateInterval);
+        public abstract void UpdateManager(float updateInterval);
     }
 }

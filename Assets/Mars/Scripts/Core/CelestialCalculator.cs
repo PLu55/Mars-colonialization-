@@ -3,7 +3,7 @@ using System.Data.SqlTypes;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace PLu.Mars.Kernel
+namespace PLu.Mars.Core
 {
 
     // TODO: implement Sidereal time

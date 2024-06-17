@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
  
-namespace PLu.Mars.Kernel
+namespace PLu.Mars.Core
 {
     public interface IMovable
     {
