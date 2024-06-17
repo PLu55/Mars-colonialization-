@@ -1,5 +1,7 @@
 # Mars Colonialization
 
+Version 0.1
+
 ## Story
 
 ### Introduction
