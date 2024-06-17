@@ -47,12 +47,13 @@ namespace PLu.Mars.AI.HTN.Kernel
                 Debug.LogError($"Could not initialize agent {name}!");
                 gameObject.SetActive(false);
             }
+            Context.LogDecomposition = _logDecomposition;
             Debug.Log($"Context.LogDecomposition: {Context.LogDecomposition}");
         }
 
         public virtual void Update()
         {
-            Debug.Log("AIAgent.Update()");
+            //Debug.Log("AIAgent.Update()");
             if (Context is Context ctx)
             {
                 ctx.Update();

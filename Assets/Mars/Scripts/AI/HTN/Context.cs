@@ -16,7 +16,7 @@ namespace PLu.Mars.AI.HTN
         public override List<string> LastMTRDebug { get; set; }
         public override bool DebugMTR { get; } = false;
         public override Queue<FluidHTN.Debug.IBaseDecompositionLogEntry> DecompositionLog { get; set; }
-        public override bool LogDecomposition { get; } = true;
+        public override bool LogDecomposition { get; set; } = true;
 
         public override byte[] WorldState { get; } = new byte[Enum.GetValues(typeof(AIWorldState)).Length];
 

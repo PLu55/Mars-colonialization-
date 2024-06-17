@@ -37,7 +37,7 @@ namespace PLu.Mars.AI.HTN.Kernel
         public override List<string> LastMTRDebug { get; set; }
         public override bool DebugMTR { get; }
         public override Queue<IBaseDecompositionLogEntry> DecompositionLog { get; set; }
-        public override bool LogDecomposition { get; } = true;
+        public override bool LogDecomposition { get; set; } = true;
         public override byte[] WorldState { get; } = new byte[Enum.GetValues(typeof(AIWorldState)).Length];
 
         //----------------------------------------------------------------------------------------------------
