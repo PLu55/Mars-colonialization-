@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
+using System.Linq;
 
+// See https://github.com/adammyhre/Unity-Utils for more extension methods
 public static class GameObjectExtensions {
     /// <summary>
     /// Returns the object itself if it exists, null otherwise.
@@ -13,5 +15,5 @@ public static class GameObjectExtensions {
     /// <typeparam name="T">The type of the object.</typeparam>
     /// <param name="obj">The object being checked.</param>
     /// <returns>The object itself if it exists and not destroyed, null otherwise.</returns>
-    public static T OrNull<T> (this T obj) where T : Object => obj ? obj : null;
+    public static T OrNull<T>(this T obj) where T : Object => obj ? obj : null;
 }

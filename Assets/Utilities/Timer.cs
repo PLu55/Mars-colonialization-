@@ -2,7 +2,8 @@ using System;
  
 namespace PLu.Utilities
 {
-    public abstract class Timer {
+    public abstract class Timer 
+    {
         protected float initialTime;
         public float Time { get; set; }
         public float TimePast => initialTime - Time;
@@ -13,12 +14,13 @@ namespace PLu.Utilities
         public Action OnTimerStart = delegate { };
         public Action OnTimerStop = delegate { };
 
-        protected Timer(float value) {
-            initialTime = value;
+        protected Timer(float initialTime) {
+            this.initialTime = initialTime;
             IsRunning = false;
         }
 
-        public void Start() {
+        public virtual void Start() 
+        {
             Time = initialTime;
 
             if (!IsRunning) {
@@ -27,8 +29,10 @@ namespace PLu.Utilities
             }
         }
 
-        public void Stop() {
-            if (IsRunning) {
+        public void Stop() 
+        {
+            if (IsRunning) 
+            {
                 IsRunning = false;
                 OnTimerStop.Invoke();
             }
@@ -40,7 +44,8 @@ namespace PLu.Utilities
         public abstract void Tick(float deltaTime);
     }
 
-    public class CountdownTimer : Timer {
+    public class CountdownTimer : Timer 
+    {
         public CountdownTimer(float value, bool start = false) : base(value)
         {
             if (start) 
@@ -49,7 +54,8 @@ namespace PLu.Utilities
             }
          }
 
-        public override void Tick(float deltaTime) {
+        public override void Tick(float deltaTime) 
+        {
             if (IsRunning && Time > 0) 
             {   
                 Time -= deltaTime;
@@ -64,17 +70,50 @@ namespace PLu.Utilities
 
         public void Reset() => Time = initialTime;
 
-        public void Reset(float newTime) {
+        public void Reset(float newTime) 
+        {
             initialTime = newTime;
             Reset();
         }
     }
+    public class RepeatTimer : Timer 
+    {
 
-    public class StopwatchTimer : Timer {
+        public Action<float> OnTimerRepeat = delegate { };
+        public RepeatTimer(float value, bool start = false) : base(value) 
+        {
+            if (start) 
+            {
+                Start();
+            }
+        }
+
+        public override void Start()
+        {
+            OnTimerRepeat.Invoke(0f);
+            base.Start();
+        }
+        public override void Tick(float deltaTime) 
+        {
+            if (IsRunning) {
+                Time -= deltaTime;
+
+                if (Time <= 0) {
+                    OnTimerRepeat.Invoke(initialTime - Time);
+                    Time = initialTime;
+                    
+                }
+            }
+        }
+    }
+    public class StopwatchTimer : Timer 
+    {
         public StopwatchTimer() : base(0) { }
 
-        public override void Tick(float deltaTime) {
-            if (IsRunning) {
+        public override void Tick(float deltaTime) 
+        {
+            if (IsRunning) 
+            {
                 Time += deltaTime;
             }
         }
