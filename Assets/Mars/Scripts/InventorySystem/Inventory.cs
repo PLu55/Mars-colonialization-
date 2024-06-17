@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
@@ -5,17 +6,14 @@ using UnityEngine;
  
 namespace PLu.Mars.InventorySystem
 {
+    [Serializable]
     public class Inventory : MonoBehaviour, IInventory
     {
-        private Item[] _items;
-        private int _slots = 20;
+        [SerializeField] private Item[] _items;
 
         public delegate void OnInventoryChanged();
         public OnInventoryChanged onInventoryChangedCallback;
-        void Awake()
-        {
-            _items = new Item[_slots];
-        }
+
         public bool TryAdd(Item item)
         {
             for (int i = 0; i < _items.Length; i++)
@@ -46,7 +44,7 @@ namespace PLu.Mars.InventorySystem
                         {
                             onInventoryChangedCallback.Invoke();
                         }
-                        item = new Item(name, _items[i].Description, _items[i].WeightPerUnit, quantity);
+                        item = new Item(_items[i], quantity); 
                         return true;
                     }
                     else
