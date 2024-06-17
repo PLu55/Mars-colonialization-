@@ -1,0 +1,16 @@
+{
+    "name": "BehaviourTreeAssembly",
+    "rootNamespace": "",
+    "references": [
+        "GUID:99d033ec0605d1546ab2cb8ce58fb367"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
