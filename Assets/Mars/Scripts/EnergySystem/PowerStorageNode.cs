@@ -4,7 +4,7 @@ using UnityEngine;
  
 namespace PLu.Mars.EnergySystem
 {
-    // TODO: implement maximun charge and discharge rates
+    // TODO: Charge and discharge rates are proportional to capacity.
     public class PowerStorageNode : PowerNode, IPowerNode
     {
         [Header("Power Storage Settings")]
@@ -20,7 +20,7 @@ namespace PLu.Mars.EnergySystem
         [Tooltip("The maximun discharge rate in kW")]
         [SerializeField] private float _maxDischargeRate = 0f;
 
-        public float CapacityRation => _energyLevel / _capacity;
+        public float CapacityRatio => _energyLevel / _capacity;
         private const float Wh2Joule = 3600f; 
         private const float kWh2Joule = 3600000f; 
 
@@ -29,34 +29,30 @@ namespace PLu.Mars.EnergySystem
             _powerNodeType = PowerNodeType.PowerStorage;
             base.Awake();
         }
-        // TODO: FIX: Balance is wrong negative total effect balance in EnergyController
-        public override float UppdateEffectLevel(float updateInterval, float effectBalance)
+        public override float UpdateEnergyBalance(float updateInterval, float energyBalance)
         {
-            float energyBalance;
-            effectBalance /= 1000f; // effectBalance in kW
-
-            if (effectBalance == 0)
+            if (energyBalance == 0f)
             {
                 return 0f;
             }
-            else if (effectBalance > 0)
+            if (energyBalance > 0f)
             {
-                effectBalance = effectBalance > _maxChargeRate ?  _maxChargeRate : effectBalance;
-                energyBalance = effectBalance * updateInterval / Wh2Joule;
-                
-                energyBalance = _energyLevel + energyBalance > _capacity ? _capacity - _energyLevel : energyBalance;
+                energyBalance = _energyLevel + energyBalance > _capacity ?  _capacity - _energyLevel : energyBalance;
+
+                float maxChargeEnergy = _maxChargeRate * updateInterval;
+                energyBalance = energyBalance > maxChargeEnergy  ?  maxChargeEnergy : energyBalance;
                 _energyLevel += energyBalance;
+                return -energyBalance;
             }
             else
             {
-                effectBalance = -effectBalance > _maxDischargeRate ?  -_maxDischargeRate : effectBalance;
-                energyBalance = effectBalance * updateInterval / Wh2Joule;
-                energyBalance = _energyLevel + energyBalance < 0 ?  -_energyLevel : energyBalance;
+                energyBalance = _energyLevel + energyBalance < 0f ? -_energyLevel : energyBalance;
 
+                float maxChargeEnergy = _maxDischargeRate * updateInterval;
+                energyBalance = -energyBalance > maxChargeEnergy  ?  -maxChargeEnergy : energyBalance;
                 _energyLevel += energyBalance;
+                return -energyBalance;
             }
-
-            return -energyBalance / updateInterval * Wh2Joule * 1000f;
         }
     }
 }

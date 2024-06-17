@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
- 
 namespace PLu.Mars.EnergySystem
 {
     public enum PowerNodeType
@@ -14,6 +10,14 @@ namespace PLu.Mars.EnergySystem
     {
         PowerNodeType PowerNodeType { get; }
         float NominalEffect { get; }
-        float UppdateEffectLevel(float updateInterval, float effectBalance);
+
+        // Returns the amount of energy in kWh the node produce or if negative consumes.
+        float UpdateEnergyBalance(float updateInterval, float energyBalance = 0f);
+
+        // Returns the amount of energy in kWh the node will consume (positive).
+        float RequestedEnergy(float requestedEnergy)
+        {
+            return 0f;
+        }
     }
 }

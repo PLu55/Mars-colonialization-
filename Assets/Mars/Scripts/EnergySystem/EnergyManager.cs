@@ -2,25 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using PLu.Utilities;
-using PLu.Mars.Kernel;
+using PLu.Mars.Core;
 using PLu.Mars.HabitatSystem;
  
 namespace PLu.Mars.EnergySystem
 {
-    public class EnergyController : MonoBehaviour
+    public class EnergyManager : MonoBehaviour
     {
         [Header("Energy Settings")]
-        [SerializeField] private float _effectBalance = 0f;
+        [Tooltip("The total energy balance in kWh of the habitat")]
+        [SerializeField] private float _energyBalance = 0f;
 
         [Header("Updating Settings")]
         [SerializeField] private float _updateInterval = 1f;
         [Header("Debugging")]
         [SerializeField] private bool _debug = false;
 
-        public float EffectBalance=> _effectBalance;
+        public float EnergyBalance=> _energyBalance;
         public float SolarIrradiance => _solarIrradiance;
         public float UpdateInterval => _updateInterval;
-        private HabitatController _habitatController;
+        private HabitatManager _habitatController;
         private CountdownTimer _tickTimer;
         private float _solarIrradiance;
 
@@ -30,8 +31,8 @@ namespace PLu.Mars.EnergySystem
 
         void Awake()
         {
-            _habitatController = GetComponent<HabitatController>();
-            Debug.Assert(_habitatController != null, "Habitat Controller is not found in EnergyController");
+            _habitatController = GetComponent<HabitatManager>();
+            Debug.Assert(_habitatController != null, "HabitatManager is not found in EnergyManager");
         }
         void Start()
         {
@@ -48,43 +49,62 @@ namespace PLu.Mars.EnergySystem
                 UpdateEnergyBalance();
             }
         }
+
+        // TODO: When there is a power shortage, the energy should be taken from the
+        //      storage nodes and distributed proportionally or prioritized.
         void UpdateEnergyBalance()
         {            
             if (_debug) Debug.Log("Updating Energy Balance");
             _solarIrradiance = _habitatController.CurrentSolarIrradiance;
 
-            _effectBalance = 0f;
-            float effectProduced = 0f;
-            float effectConsumed = 0f;
-            float effectStored = 0f;
+            _energyBalance = 0f;
+
+            float energyProduced = 0f;
+            float energyConsumed = 0f;
+            float energyStored = 0f;
             foreach(var node in _powerProducerNodes)
             {
-                effectProduced += node.UppdateEffectLevel(_updateInterval, _effectBalance);
-                
+                energyProduced += node.UpdateEnergyBalance(_updateInterval);
             }
-            _effectBalance += effectProduced;
-            if (_debug) Debug.Log($"--- Effect produced: {effectProduced}, Solar Irradiance: {_solarIrradiance}");
+            _energyBalance += energyProduced;
+            if (_debug) Debug.Log($"--- Energy produced: {energyProduced} kWh, Solar Irradiance: {_solarIrradiance} W/m2");
   
             foreach(var node in _powerConsumerNodes)
             {
-                effectConsumed += node.UppdateEffectLevel(_updateInterval, _effectBalance);
+                float requestedEnergy = node.RequestedEnergy(_updateInterval);
+                if (requestedEnergy > _energyBalance)
+                {
+                    float energyShortage = requestedEnergy - _energyBalance;
+                    float energyTaken = 0f;
+                    foreach(var storageNode in _powerStorageNodes)
+                    {
+                        energyTaken = storageNode.UpdateEnergyBalance(_updateInterval, energyShortage);
+                        energyShortage -= energyTaken;
+                        _energyBalance += energyTaken;
+                        energyStored -= energyTaken;
+                        if ( energyShortage <= 0f)
+                        {
+                            break;
+                        }
+                    }
+                }
+                energyConsumed += node.UpdateEnergyBalance(_updateInterval, _energyBalance);
+                _energyBalance += energyConsumed;
             }
-            _effectBalance += effectConsumed;
-            if (_debug) Debug.Log($"--- Effect consumed: {effectConsumed}");
-            if (_effectBalance < 0f)
+
+            if (_debug) Debug.Log($"--- Energy consumed: {energyConsumed} kWh");
+            if (_energyBalance > 0f)
             {
-
+                foreach(var node in _powerStorageNodes)
+                {
+                    float storedEnergy = node.UpdateEnergyBalance(_updateInterval, _energyBalance);
+                    energyStored += storedEnergy;
+                    _energyBalance -= storedEnergy;
+                }
             }
 
-            foreach(var node in _powerStorageNodes)
-            {
-                float currentEffect = node.UppdateEffectLevel(_updateInterval, _effectBalance);
-                effectStored += currentEffect;
-                _effectBalance += currentEffect;
-            }
-
-            if (_debug) Debug.Log($"--- Effect Stored: {-effectStored}");
-            if (_debug) Debug.Log($"--- Effect Balance: {_effectBalance}");
+            if (_debug) Debug.Log($"--- Energy Stored: {-energyStored} kWh");
+            if (_debug) Debug.Log($"--- Energy Balance: {_energyBalance} kWh");
         }
 
         public void AddPowerNode(IPowerNode node)
