@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
-using PLu.Mars.Kernel;
+using PLu.Mars.Core;
 using System;
 
 public class CalendarTestsScript
