@@ -56,7 +56,7 @@ namespace PLu.Mars.BotanicSystem
             {
                 gasBalance += plant.AtmosphereBalance(updateInterval);
             }
-            _atmosphereController.UpdateGases(updateInterval, gasBalance);
+            //_atmosphereController.UpdateGases(updateInterval, gasBalance);
         }
 
         public void AddPlant(IPlant plant)

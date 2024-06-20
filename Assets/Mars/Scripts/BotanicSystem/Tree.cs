@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using PLu.Mars.HabitatSystem;
-using PlasticPipe.PlasticProtocol.Messages;
+using PLu.Mars.AtmosphereSystem;
 
 namespace PLu.Mars.BotanicSystem
 {

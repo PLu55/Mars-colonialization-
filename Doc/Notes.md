@@ -1,14 +1,18 @@
 # Mars Colonialization
 
-Version 0.1
+Version r0.1
 
 ## Story
 
 ### Introduction
 
-A project with the purpose of colonialize Mars has been started and the colonialization has begun. About 160 people are living on the planet. The population lives in 12 habitats. The habitats are specilazed on different tasks such as food production, infrastructure support, mining ...
+A project with the purpose of colonize Mars has been started and the colonization has begun. A small groupe of people has landed
+on the planet. A a modular habitat is built from the vessels the people arrived in and some additional module from a some cargo vessels.
 
-There are problems, the population if devided into faction struggling for power. You have benn there in the last convoy. Your secred mission is to unite the population but you have a chose, struggle for the power you self or truly unite the colony.
+
+In the long run about 160 people are living on the planet. The population lives in 12 habitats. The habitats are specialized on different tasks such as food production, infrastructure support, mining ...
+
+There are problems, the population if devided into faction struggling for power. You have been there in the last convoy. Your secret mission is to unite the population but you have a chose, struggle for the power you self or truly unite the colony.
 
 ## Game Concept: Mars Colony Unity
 
@@ -56,11 +60,17 @@ The game is a strategy and simulation game where the player arrives on Mars with
 
 #### Starting Phase
 
-The player arrives on Mars and is introduced to the colony's current state.
-Initial briefings provide an overview of faction relationships, resource status, and immediate challenges.
+The player arrives on Mars with a groupe of people. The first task is to setup a first habitat and
+get it to run. The immediate difficulties are to get the life supporting systems up and running.
+Energy, oxygen, water and food must be produces to survive. 
+
+There are seeds, cyanobacteria and fish eggs in the cargo, this has to be put to work to implement a aquaponics food production system. 
+
+Survey the surroundings to try to find water and other materials.
 
 #### Mid-Game
 
+Setting up more habitats.
 The player navigates faction dynamics, manages resources, and deals with random events.
 Diplomacy and strategy become crucial as the player works towards their chosen path (unity or power).
 
@@ -178,6 +188,18 @@ Each habitat specializes in a specific role, contributing uniquely to the colony
 * Governance Village
   * Acts as the administrative center for the colony.
   * Manages colony-wide policies and coordinates between habitats.
+
+## Life supporting systems
+
+### Water
+
+Water has to be recycled. 
+
+A urine processor can be used to produce drinking water. It can probably recover 70-85% of the water
+from the urine. A water processor is are treating the out put from the urine processor and water from other sources. 
+ 
+
+[ISS_ECLSS](https://en.wikipedia.org/wiki/ISS_ECLSS#Water_recovery_systems)
 
 ## Climate
 

@@ -14,5 +14,6 @@ namespace PLu.Mars.CharacterSystem
         public string Name => name;
         public Stats Stats => _stats;
         public Skill[] Skills => _skills;
+
     }
 }

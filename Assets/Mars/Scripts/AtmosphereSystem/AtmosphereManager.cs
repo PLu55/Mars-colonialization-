@@ -80,21 +80,24 @@ namespace PLu.Mars.AtmosphereSystem
             _partialCarbonDioxidePressure = _nominalCarbonDioxideFraction * _nominalTotalPressure;
         }
         public void UpdateAtmosphere(float deltaTime)
-        {
-            if (_debug) Debug.Log($"UpdateAtmosphere {deltaTime}");
+        {}
+        
+        // public void UpdateAtmosphere(float deltaTime)
+        // {
+        //     if (_debug) Debug.Log($"UpdateAtmosphere {deltaTime}");
 
-            //_oxygenVolumeRatio = TotalPressure / PartialOxygenPressure;
-            //_oxygenLevel = _oxygenVolumeRatio / (1 + _oxygenVolumeRatio);
+        //     //_oxygenVolumeRatio = TotalPressure / PartialOxygenPressure;
+        //     //_oxygenLevel = _oxygenVolumeRatio / (1 + _oxygenVolumeRatio);
 
-            foreach (IAtmosphereNode node in _atmosphereNodes)
-            {
-                AtmosphereCompounds compounds = node.AtmosphereBalance(_updateInterval);
-                _totalPressure += compounds.TotalPressure;
-                _partialOxygenPressure += compounds.PartialOxygenPressure;
-                _partialNitrogenPressure += compounds.PartialNitrogenPressure;
-                _partialCarbonDioxidePressure += compounds.PartialCarbonDioxidePressure;
-            }
-        }
+        //     foreach (IAtmosphereNode node in _atmosphereNodes)
+        //     {
+        //         AtmosphereCompounds compounds = node.AtmosphereBalance(_updateInterval);
+        //         _totalPressure += compounds.TotalPressure;
+        //         _partialOxygenPressure += compounds.PartialOxygenPressure;
+        //         _partialNitrogenPressure += compounds.PartialNitrogenPressure;
+        //         _partialCarbonDioxidePressure += compounds.PartialCarbonDioxidePressure;
+        //     }
+        // }
 
         public void UpdateGases(float updateInterval, float totalPressure, float oxygenLevel)
         {
